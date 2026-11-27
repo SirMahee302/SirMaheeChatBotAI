@@ -1850,10 +1850,15 @@
 </div>
 
 <script>
-  // ==================== 1. MULTI-LAYER AUTO-SAVE STATE MANAGEMENT ====================
-  const STORAGE_KEY = 'sir_mahee_doubtbot_v4';
+  // ==================== 0. SECURE BACKEND PROXY CONFIG ====================
+  // अपना Cloudflare Worker लिंक नीचे दोनों कोट्स के बीच पेस्ट करें (जैसे: 'https://sir-mahee-ai.yourname.workers.dev')
+  const DEFAULT_BACKEND_URL = '';
+
+  // ==================== 1. AUTO-SAVE STATE MANAGEMENT ====================
+  const STORAGE_KEY = 'sir_mahee_doubtbot_v5';
 
   const defaultState = {
+    backendUrl: DEFAULT_BACKEND_URL,
     apiKey: '',
     model: 'gemini-2.5-flash',
     studentName: 'Student',
@@ -1873,18 +1878,10 @@
   };
 
   function readPersistentRaw() {
-    // 1. Try localStorage
     try {
       const ls = window.localStorage.getItem(STORAGE_KEY);
       if (ls) return ls;
     } catch (e) {}
-    // 2. Fallback to window.name (works even in Android content:// & file://)
-    try {
-      if (window.name && window.name.startsWith('SMDB:')) {
-        return window.name.slice(5);
-      }
-    } catch (e) {}
-    // 3. Fallback to cookie
     try {
       const match = document.cookie.match(new RegExp('(?:^|; )' + STORAGE_KEY + '=([^;]*)'));
       if (match) return decodeURIComponent(match[1]);
@@ -1896,10 +1893,6 @@
     let savedAnywhere = false;
     try {
       window.localStorage.setItem(STORAGE_KEY, jsonStr);
-      savedAnywhere = true;
-    } catch (e) {}
-    try {
-      window.name = 'SMDB:' + jsonStr;
       savedAnywhere = true;
     } catch (e) {}
     try {
@@ -1917,6 +1910,7 @@
       if (!raw) return { ...defaultState };
       const parsed = JSON.parse(raw);
       const merged = { ...defaultState, ...parsed };
+      if (DEFAULT_BACKEND_URL && !merged.backendUrl) merged.backendUrl = DEFAULT_BACKEND_URL;
       if (merged.model === 'gemini-2.5-pro') merged.model = 'gemini-3.1-pro-preview';
       return merged;
     } catch (e) {
@@ -1973,11 +1967,15 @@
 
     const aiModeEl = document.getElementById('aiModeText');
     const hdrDot = document.getElementById('hdrApiDot');
-    if (appState.apiKey && appState.apiKey.trim().length > 10) {
+    const activeBackend = (appState.backendUrl || DEFAULT_BACKEND_URL || '').trim();
+    if (activeBackend.startsWith('http')) {
+      aiModeEl.innerHTML = `<span class="status-dot dot-live"></span>🔒 Secure Backend AI Active (${appState.model})`;
+      hdrDot.style.background = '#22c55e';
+    } else if (appState.apiKey && appState.apiKey.trim().length > 10) {
       aiModeEl.innerHTML = `<span class="status-dot dot-live"></span>Live Gemini AI Active (${appState.model})`;
       hdrDot.style.background = '#22c55e';
     } else {
-      aiModeEl.innerHTML = `<span class="status-dot dot-demo"></span>Offline Mode (Live AI के लिए Key डालें)`;
+      aiModeEl.innerHTML = `<span class="status-dot dot-demo"></span>Offline Mode (Backend या Key सेट करें)`;
       hdrDot.style.background = '#ef4444';
     }
   }
@@ -2071,8 +2069,9 @@
   }
 
   async function callGeminiAPI(promptText, imageBase64 = null, mimeType = 'image/jpeg') {
+    const backendUrl = (appState.backendUrl || DEFAULT_BACKEND_URL || '').trim().replace(/\/+$/, '');
     const apiKey = (appState.apiKey || '').replace(/[\s\u200B-\u200D\uFEFF]/g, '');
-    if (!apiKey) throw new Error('API Key खाली है।');
+    if (!backendUrl && !apiKey) throw new Error('Backend URL या API Key खाली है।');
 
     let primaryModel = appState.model || 'gemini-2.5-flash';
     if (primaryModel === 'gemini-2.5-pro') primaryModel = 'gemini-3.1-pro-preview';
@@ -2104,18 +2103,23 @@ Rules:
     let lastError = null;
     for (const mdl of modelsToTry) {
       try {
-        const url = `https://generativelanguage.googleapis.com/v1beta/models/${mdl}:generateContent?key=${encodeURIComponent(apiKey)}`;
+        const useBackend = backendUrl.startsWith('http');
+        const url = useBackend
+          ? backendUrl
+          : `https://generativelanguage.googleapis.com/v1beta/models/${mdl}:generateContent?key=${encodeURIComponent(apiKey)}`;
+        const payload = {
+          model: mdl,
+          system_instruction: { parts: [{ text: systemInstruction }] },
+          contents: [{ role: 'user', parts }],
+          generationConfig: {
+            temperature: 0.4,
+            maxOutputTokens: 1024
+          }
+        };
         const res = await fetch(url, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            system_instruction: { parts: [{ text: systemInstruction }] },
-            contents: [{ role: 'user', parts }],
-            generationConfig: {
-              temperature: 0.4,
-              maxOutputTokens: 1024
-            }
-          })
+          body: JSON.stringify(payload)
         });
 
         const data = await res.json().catch(() => ({}));
@@ -2227,7 +2231,8 @@ Quick Tip: ऊपर 🔑 **Gemini Key** बटन दबाकर अपनी 
 
     let answerMarkdown = '';
     try {
-      if (appState.apiKey && appState.apiKey.trim().length > 10) {
+      const activeBackend = (appState.backendUrl || DEFAULT_BACKEND_URL || '').trim();
+      if (activeBackend.startsWith('http') || (appState.apiKey && appState.apiKey.trim().length > 10)) {
         answerMarkdown = await callGeminiAPI(question, imageBase64, mimeType);
       } else {
         await new Promise(r => setTimeout(r, 450));
@@ -2622,20 +2627,16 @@ Quick Tip: ऊपर 🔑 **Gemini Key** बटन दबाकर अपनी 
   function closeDialog() { document.getElementById('modalBox').classList.remove('open'); }
 
   function openApiSettings() {
-    const isContentUri = window.location.protocol === 'content:' || window.location.protocol === 'file:';
-    const warnBanner = isContentUri
-      ? `<div style="background:#fef3c7;border:1px solid #f59e0b;color:#92400e;padding:8px 10px;border-radius:10px;font-size:11px;margin-bottom:10px;">
-          ⚠️ <b>ध्यान दें:</b> आपने यह फाइल सीधे मोबाइल स्टोरेज (<code>${window.location.protocol}</code>) से खोली है। Android Chrome में <code>content://</code> लिंक बंद करने पर ब्राउज़र डेटा साफ़ कर देता है। स्थायी Save के लिए इसे <b>GitHub Pages</b> या लोकल सर्वर पर होस्ट करें।
-         </div>`
-      : '';
-
-    showDialog('🔑 Live Gemini AI Setup', `
-      ${warnBanner}
+    const currentBackend = appState.backendUrl || DEFAULT_BACKEND_URL || '';
+    showDialog('🔒 Secure Backend & AI Setup', `
       <p style="color:#525d78;font-size:12px;margin-bottom:8px;">
-        अपनी Google AI Studio (Gemini) API Key नीचे पेस्ट करें:
+        <b>सुरक्षित तरीका (Recommended):</b> अपना Cloudflare Worker URL डालें ताकि आपकी API Key पूरी तरह सर्वर पर छिपी रहे।
       </p>
-      <label style="font-weight:700;font-size:12px;">Gemini API Key:</label>
-      <input type="text" id="apiKeyInput" class="form-input" placeholder="AIzaSy..." value="${appState.apiKey || ''}" autocomplete="off" spellcheck="false" />
+      <label style="font-weight:700;font-size:12px;">Cloudflare Backend URL:</label>
+      <input type="url" id="backendUrlInput" class="form-input" placeholder="https://sir-mahee-ai.yourname.workers.dev" value="${currentBackend}" autocomplete="off" spellcheck="false" />
+
+      <label style="font-weight:700;font-size:12px;">Direct Gemini API Key (वैकल्पिक):</label>
+      <input type="text" id="apiKeyInput" class="form-input" placeholder="AIzaSy... (Backend URL होने पर खाली छोड़ें)" value="${appState.apiKey || ''}" autocomplete="off" spellcheck="false" />
 
       <label style="font-weight:700;font-size:12px;">AI Model:</label>
       <select id="apiModelSelect" class="form-input">
@@ -2645,38 +2646,46 @@ Quick Tip: ऊपर 🔑 **Gemini Key** बटन दबाकर अपनी 
       </select>
 
       <div id="apiSaveStatus" style="font-size:12px;font-weight:700;margin:6px 0;"></div>
-      <button class="navy-cta" id="saveApiBtn" onclick="saveApiConfig()">💾 Test & Save API Key</button>
+      <button class="navy-cta" id="saveApiBtn" onclick="saveApiConfig()">💾 Test & Save Connection</button>
     `);
   }
 
   async function saveApiConfig() {
+    const rawBackend = document.getElementById('backendUrlInput').value.trim().replace(/\/+$/, '');
     const rawKey = document.getElementById('apiKeyInput').value;
     const cleanedKey = rawKey.replace(/[\s\u200B-\u200D\uFEFF]/g, '');
     const selectedModel = document.getElementById('apiModelSelect').value;
     const statusEl = document.getElementById('apiSaveStatus');
     const btn = document.getElementById('saveApiBtn');
 
-    if (cleanedKey.length < 15) {
+    if (!rawBackend && cleanedKey.length < 15) {
       statusEl.style.color = '#b91c1c';
-      statusEl.textContent = '❌ कृपया सही Gemini API Key (AIzaSy...) दर्ज करें।';
+      statusEl.textContent = '❌ कृपया Cloudflare Backend URL या सही Gemini API Key दर्ज करें।';
       return;
     }
 
+    appState.backendUrl = rawBackend;
     appState.apiKey = cleanedKey;
     appState.model = selectedModel;
     saveAppState();
 
     btn.disabled = true;
-    btn.textContent = '⏳ API Key जांच रहे हैं...';
+    btn.textContent = '⏳ कनेक्शन जांच रहे हैं...';
     statusEl.style.color = '#1d4ed8';
-    statusEl.textContent = '🔄 Google Gemini सर्वर से कनेक्शन चेक हो रहा है...';
+    statusEl.textContent = rawBackend
+      ? '🔄 Secure Backend सर्वर से कनेक्शन चेक हो रहा है...'
+      : '🔄 Google Gemini सर्वर से कनेक्शन चेक हो रहा है...';
 
     try {
-      const testUrl = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${encodeURIComponent(cleanedKey)}`;
+      const useBackend = rawBackend.startsWith('http');
+      const testUrl = useBackend
+        ? rawBackend
+        : `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${encodeURIComponent(cleanedKey)}`;
       const res = await fetch(testUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          model: selectedModel,
           contents: [{ role: 'user', parts: [{ text: 'Reply only with: OK' }] }],
           generationConfig: { maxOutputTokens: 10 }
         })
@@ -2686,11 +2695,13 @@ Quick Tip: ऊपर 🔑 **Gemini Key** बटन दबाकर अपनी 
         throw new Error(data?.error?.message || `Error ${res.status}`);
       }
       statusEl.style.color = '#15803d';
-      statusEl.textContent = '✅ API Key सेव हो गई और Live AI सक्रिय है!';
+      statusEl.textContent = useBackend
+        ? '✅ Secure Backend सक्रिय है! आपकी API Key पूरी तरह सुरक्षित है।'
+        : '✅ API Key सेव हो गई और Live AI सक्रिय है!';
       setTimeout(() => closeDialog(), 900);
     } catch (err) {
       statusEl.style.color = '#b91c1c';
-      statusEl.innerHTML = `⚠️ Key सेव तो हो गई, पर API त्रुटि आई: <b>${err.message}</b>`;
+      statusEl.innerHTML = `⚠️ सेटिंग सेव हो गई, पर कनेक्शन त्रुटि आई: <b>${err.message}</b>`;
       btn.disabled = false;
       btn.textContent = '💾 पुनः प्रयास करें (Retry)';
     }
@@ -2790,4 +2801,4 @@ Quick Tip: ऊपर 🔑 **Gemini Key** बटन दबाकर अपनी 
   }
 </script>
 </body>
-  </html>
+      </html>
