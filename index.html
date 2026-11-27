@@ -1,0 +1,2789 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sir Mahee DoubtBot AI ✨ | Study • Ask • Solve</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0d1b3e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-950: #08122b;
+      --navy-900: #0d1b3e;
+      --navy-800: #162b5c;
+      --navy-700: #203c7c;
+      --gold-500: #e5a928;
+      --gold-400: #f3c456;
+      --gold-300: #fae094;
+      --cream-bg: #fbf3e4;
+      --cream-card: rgba(255, 252, 245, 0.88);
+      --text-primary: #111936;
+      --text-secondary: #525d78;
+      --float-shadow: 0 10px 24px -4px rgba(16, 28, 62, 0.08), 0 3px 8px -2px rgba(16, 28, 62, 0.04);
+      --float-shadow-hover: 0 14px 28px -4px rgba(16, 28, 62, 0.13), 0 4px 10px -2px rgba(229, 169, 40, 0.18);
+      --bevel-border: 1.5px solid rgba(255, 255, 255, 0.92);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', 'Noto Sans Devanagari', sans-serif;
+      background: linear-gradient(145deg, #dfd4c2 0%, #cfc1ab 100%);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .phone-shell {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 88% 12%, rgba(255, 232, 179, 0.55) 0%, transparent 42%),
+        radial-gradient(circle at 12% 48%, rgba(255, 244, 219, 0.85) 0%, transparent 50%),
+        linear-gradient(180deg, #fcf5e8 0%, #f7ebd4 52%, #f3e2c4 100%);
+      position: relative;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      padding-bottom: 108px;
+      box-shadow: 0 24px 60px rgba(8, 18, 43, 0.28);
+    }
+
+    @media (min-width: 480px) {
+      body { padding: 16px 0; }
+      .phone-shell {
+        min-height: 860px;
+        max-height: 94vh;
+        border-radius: 40px;
+        border: 3.5px solid #e7c066;
+        overflow-y: auto;
+      }
+      .phone-shell::-webkit-scrollbar { width: 4px; }
+      .phone-shell::-webkit-scrollbar-thumb {
+        background: rgba(13, 27, 62, 0.18);
+        border-radius: 99px;
+      }
+    }
+
+    .bg-silk-wave {
+      position: absolute;
+      top: 320px;
+      left: 0;
+      width: 100%;
+      height: 520px;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.55;
+    }
+
+    /* ==================== KEYFRAME ANIMATIONS ==================== */
+    @keyframes floatBob {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-5px); }
+    }
+
+    @keyframes orbPulseGlow {
+      0%, 100% { box-shadow: 0 0 16px rgba(244, 200, 91, 0.45), inset 0 0 8px rgba(255, 255, 255, 0.25); }
+      50% { box-shadow: 0 0 24px rgba(244, 200, 91, 0.78), inset 0 0 10px rgba(255, 255, 255, 0.4); }
+    }
+
+    @keyframes smoothAppear {
+      from { opacity: 0; transform: translateY(10px) scale(0.985); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes staggerFadeUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4); }
+      70% { box-shadow: 0 0 0 8px rgba(239, 68, 68, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+    }
+
+    /* ==================== TOP ORGANIC WAVE HEADER ==================== */
+    .wave-header-wrap {
+      position: relative;
+      z-index: 20;
+      padding-bottom: 16px;
+    }
+
+    .wave-header-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 126px;
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 18px 8px;
+      color: #ffffff;
+    }
+
+    .hdr-icon-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      border: none;
+      background: rgba(255, 255, 255, 0.08);
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.16s ease, background 0.16s ease;
+    }
+
+    .hdr-icon-btn:active {
+      transform: scale(0.9);
+      background: rgba(255, 255, 255, 0.18);
+    }
+
+    .notif-badge {
+      position: absolute;
+      top: 7px;
+      right: 7px;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #ef4444;
+      border: 1.5px solid #0d1b3e;
+    }
+
+    .brand-lockup {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-orb {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 32% 28%, #284b96, #0b1634 75%);
+      border: 2px solid #f4c85b;
+      animation: orbPulseGlow 3.2s ease-in-out infinite;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .brand-copy h1 {
+      font-size: 16.5px;
+      font-weight: 800;
+      line-height: 1.15;
+      color: #ffffff;
+      letter-spacing: -0.2px;
+    }
+
+    .brand-copy .tagline {
+      font-size: 10.5px;
+      font-weight: 600;
+      color: #f6d57e;
+      letter-spacing: 0.45px;
+      margin-top: 2px;
+    }
+
+    /* ==================== MAIN CONTENT CONTAINER ==================== */
+    .view-section {
+      display: none;
+      padding: 4px 16px 16px;
+      position: relative;
+      z-index: 5;
+      animation: smoothAppear 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .view-section.active { display: block; }
+
+    .greeting-hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 12px;
+      padding: 0 2px;
+    }
+
+    .greeting-copy h2 {
+      font-size: 20px;
+      font-weight: 800;
+      color: #101833;
+      letter-spacing: -0.3px;
+      line-height: 1.22;
+    }
+
+    .greeting-copy p {
+      font-size: 13px;
+      font-weight: 500;
+      color: #4d5873;
+      margin-top: 4px;
+      line-height: 1.38;
+      max-width: 245px;
+    }
+
+    .books-bulb-art {
+      width: 82px;
+      height: 82px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 8px 12px rgba(217, 155, 38, 0.22));
+      animation: floatBob 3.6s ease-in-out infinite;
+    }
+
+    .floating-search-pill {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96) 0%, rgba(252, 247, 238, 0.92) 100%);
+      border: var(--bevel-border);
+      border-radius: 999px;
+      padding: 6px 6px 6px 15px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 12px 28px -4px rgba(16, 28, 62, 0.1), inset 0 2px 4px rgba(255, 255, 255, 0.9);
+      margin-bottom: 12px;
+      transition: box-shadow 0.22s ease, transform 0.22s ease;
+    }
+
+    .floating-search-pill:focus-within {
+      box-shadow: 0 14px 30px -4px rgba(22, 43, 92, 0.16), 0 0 0 2.5px rgba(243, 196, 86, 0.72);
+      transform: translateY(-2px);
+    }
+
+    .floating-search-pill input {
+      flex: 1;
+      border: none;
+      outline: none;
+      background: transparent;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .floating-search-pill input::placeholder {
+      color: #6b758e;
+      font-weight: 500;
+    }
+
+    .send-orb-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1.5px solid #f2c65a;
+      background: radial-gradient(circle at 30% 25%, #244288, #0c1838 80%);
+      color: #f8d477;
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      box-shadow: 0 5px 14px rgba(12, 24, 56, 0.3);
+      flex-shrink: 0;
+      transition: transform 0.16s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .send-orb-btn:hover { transform: scale(1.06); }
+    .send-orb-btn:active { transform: scale(0.9); }
+
+    .action-pills-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 15px;
+    }
+
+    .float-chip {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(252, 246, 235, 0.9) 100%);
+      border: var(--bevel-border);
+      border-radius: 999px;
+      padding: 8px 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      font-family: inherit;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #18223f;
+      box-shadow: var(--float-shadow);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.18s ease;
+    }
+
+    .float-chip:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--float-shadow-hover);
+    }
+
+    .float-chip:active { transform: scale(0.95); }
+
+    .float-chip.recording {
+      background: #fee2e2;
+      border-color: #ef4444;
+      color: #b91c1c;
+      animation: pulseGlow 1.2s infinite;
+    }
+
+    .ai-hero-card {
+      background: linear-gradient(120deg, #0b1634 0%, #162b5c 52%, #1d3672 100%);
+      border-radius: 22px;
+      border: 1.5px solid rgba(243, 196, 86, 0.72);
+      padding: 14px 14px 14px 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 14px 28px -4px rgba(11, 22, 52, 0.28);
+      margin-bottom: 16px;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+    }
+
+    .ai-hero-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 32px -4px rgba(11, 22, 52, 0.35);
+    }
+
+    .ai-hero-card:active { transform: scale(0.985); }
+
+    .ai-hero-card::before {
+      content: '';
+      position: absolute;
+      left: -15px;
+      top: -15px;
+      width: 150px;
+      height: 150px;
+      background: radial-gradient(circle, rgba(245, 196, 81, 0.42) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-bot-svg {
+      width: 92px;
+      height: 98px;
+      flex-shrink: 0;
+      z-index: 1;
+      filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.35));
+      animation: floatBob 3.2s ease-in-out infinite;
+    }
+
+    .hero-details {
+      flex: 1;
+      z-index: 1;
+    }
+
+    .hero-details h3 {
+      font-size: 18.5px;
+      font-weight: 800;
+      color: #ffffff;
+      margin-bottom: 8px;
+      letter-spacing: -0.2px;
+    }
+
+    .hero-checklist {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .hero-checklist li {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #f1f5ff;
+    }
+
+    .green-tick {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      background: linear-gradient(180deg, #34d399, #10b981);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 900;
+      display: inline-grid;
+      place-items: center;
+      flex-shrink: 0;
+      box-shadow: 0 2px 5px rgba(16, 185, 129, 0.4);
+    }
+
+    .features-3x2 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .float-tile {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94) 0%, rgba(253, 247, 236, 0.88) 100%);
+      border: var(--bevel-border);
+      border-radius: 20px;
+      padding: 13px 6px 12px;
+      text-align: center;
+      box-shadow: var(--float-shadow);
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease;
+      animation: staggerFadeUp 0.4s ease backwards;
+    }
+
+    .float-tile:nth-child(1) { animation-delay: 0.03s; }
+    .float-tile:nth-child(2) { animation-delay: 0.07s; }
+    .float-tile:nth-child(3) { animation-delay: 0.11s; }
+    .float-tile:nth-child(4) { animation-delay: 0.15s; }
+    .float-tile:nth-child(5) { animation-delay: 0.19s; }
+    .float-tile:nth-child(6) { animation-delay: 0.23s; }
+
+    .float-tile:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--float-shadow-hover);
+    }
+
+    .float-tile:active { transform: scale(0.95); }
+
+    .tile-icon-wrap {
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 7px;
+      display: grid;
+      place-items: center;
+      transition: transform 0.2s ease;
+    }
+
+    .float-tile:hover .tile-icon-wrap { transform: scale(1.08); }
+
+    .float-tile h4 {
+      font-size: 12px;
+      font-weight: 800;
+      color: #131c38;
+      line-height: 1.22;
+    }
+
+    .float-tile span {
+      display: block;
+      font-size: 10px;
+      font-weight: 600;
+      color: #5b6682;
+      margin-top: 2px;
+    }
+
+    .section-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      padding: 0 2px;
+    }
+
+    .section-title-row h3 {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: #111936;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .see-all-link {
+      background: none;
+      border: none;
+      font-family: inherit;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #1d4ed8;
+      cursor: pointer;
+    }
+
+    .quick-subjects-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-bottom: 18px;
+    }
+
+    .subj-float-card {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(253, 248, 238, 0.9) 100%);
+      border: var(--bevel-border);
+      border-radius: 17px;
+      padding: 9px 4px 8px;
+      text-align: center;
+      box-shadow: var(--float-shadow);
+      cursor: pointer;
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .subj-float-card:hover { transform: translateY(-3px); }
+    .subj-float-card:active { transform: scale(0.93); }
+
+    .subj-inner-box {
+      width: 36px;
+      height: 36px;
+      border-radius: 11px;
+      margin: 0 auto 6px;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 17px;
+    }
+
+    .bg-eng { background: #ffe4e6; color: #e11d48; }
+    .bg-hin { background: #ffedd5; color: #ea580c; }
+    .bg-mth { background: #dbeafe; color: #2563eb; }
+    .bg-sci { background: #dcfce7; color: #16a34a; }
+    .bg-sst { background: #fef3c7; color: #d97706; }
+
+    .subj-float-card p {
+      font-size: 11px;
+      font-weight: 700;
+      color: #18223f;
+    }
+
+    .floating-panel {
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(253, 248, 239, 0.86) 100%);
+      border: var(--bevel-border);
+      border-radius: 22px;
+      padding: 15px 15px;
+      box-shadow: var(--float-shadow);
+      margin-bottom: 16px;
+    }
+
+    .progress-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
+
+    .target-orb {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, #f3e8ff, #e9d5ff);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .progress-meta { flex: 1; }
+
+    .progress-labels {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .progress-labels h4 {
+      font-size: 15px;
+      font-weight: 800;
+      color: #111936;
+    }
+
+    .progress-labels span {
+      font-size: 14.5px;
+      font-weight: 800;
+      color: #111936;
+    }
+
+    .progress-rail {
+      height: 8px;
+      border-radius: 999px;
+      background: #e9e2d5;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 60%;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #eab338 0%, #c88a1e 100%);
+      transition: width 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .metrics-trio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid rgba(17, 25, 54, 0.08);
+      padding-top: 12px;
+    }
+
+    .metric-cell {
+      text-align: center;
+      position: relative;
+    }
+
+    .metric-cell:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 12%;
+      height: 76%;
+      width: 1px;
+      background: rgba(17, 25, 54, 0.1);
+    }
+
+    .metric-num {
+      font-size: 15.5px;
+      font-weight: 800;
+      color: #111936;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+
+    .metric-sub {
+      font-size: 11px;
+      font-weight: 600;
+      color: #5b6682;
+      margin-top: 2px;
+    }
+
+    .how-head {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .play-dark-circle {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #0d1b3e;
+      color: #ffffff;
+      display: grid;
+      place-items: center;
+      font-size: 10px;
+    }
+
+    .how-steps-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 4px;
+    }
+
+    .how-arch-card {
+      flex: 1;
+      background: linear-gradient(180deg, #ffffff 0%, #fcf8f0 100%);
+      border: 1.5px solid rgba(255, 255, 255, 0.95);
+      border-radius: 26px 26px 18px 18px;
+      padding: 11px 6px 10px;
+      text-align: center;
+      box-shadow: 0 6px 16px rgba(17, 25, 54, 0.06);
+    }
+
+    .how-step-ico {
+      width: 34px;
+      height: 34px;
+      margin: 0 auto 4px;
+      display: grid;
+      place-items: center;
+    }
+
+    .how-step-num {
+      font-size: 14px;
+      font-weight: 800;
+      color: #111936;
+    }
+
+    .how-step-txt {
+      font-size: 10px;
+      font-weight: 600;
+      color: #525d78;
+      line-height: 1.24;
+      margin-top: 2px;
+    }
+
+    .flow-arrow {
+      color: #3e4966;
+      font-weight: 800;
+      font-size: 14px;
+    }
+
+    .exam-special-card {
+      background: linear-gradient(125deg, #6d3df2 0%, #4b28b8 55%, #341d8a 100%);
+      border-radius: 22px;
+      border: 1.5px solid rgba(255, 255, 255, 0.35);
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #ffffff;
+      box-shadow: 0 12px 26px -4px rgba(75, 40, 184, 0.34);
+      margin-bottom: 16px;
+      cursor: pointer;
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .exam-special-card:hover { transform: translateY(-2px); }
+    .exam-special-card:active { transform: scale(0.98); }
+
+    .exam-bullseye {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.16);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .exam-copy { flex: 1; }
+
+    .exam-copy h4 {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+    }
+
+    .exam-copy p {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.9);
+      margin-top: 2px;
+    }
+
+    .exam-go-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, 0.65);
+      background: rgba(255, 255, 255, 0.18);
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+    }
+
+    .latest-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .latest-capsule {
+      background: #ffffff;
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      border-radius: 18px;
+      padding: 10px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 5px 14px rgba(17, 25, 54, 0.05);
+      cursor: pointer;
+      transition: transform 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .latest-capsule:hover {
+      transform: translateX(3px);
+      box-shadow: 0 7px 18px rgba(17, 25, 54, 0.09);
+    }
+
+    .latest-badge-ico {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .ico-amber { background: #fef3c7; }
+    .ico-purple { background: #ede9fe; }
+    .ico-pink { background: #fce7f3; }
+    .ico-cyan { background: #e0f2fe; }
+
+    .latest-meta { flex: 1; }
+
+    .latest-meta h5 {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #111936;
+    }
+
+    .latest-meta p {
+      font-size: 11.5px;
+      font-weight: 500;
+      color: #5b6682;
+      margin-top: 1px;
+    }
+
+    .right-chev {
+      color: #4b556e;
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    /* ==================== TOUCH-DRAGGABLE FLUID BOTTOM WAVE NAVIGATION ==================== */
+    .bottom-dock-wrap {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      max-width: 430px;
+      z-index: 40;
+      pointer-events: none;
+    }
+
+    @media (min-width: 480px) {
+      .bottom-dock-wrap {
+        position: sticky;
+        bottom: 0;
+        margin-top: auto;
+      }
+    }
+
+    .bottom-wave-svg {
+      display: block;
+      width: 100%;
+      height: 28px;
+      margin-bottom: -2px;
+    }
+
+    .bottom-nav-bar {
+      pointer-events: auto;
+      position: relative;
+      background: linear-gradient(180deg, #0e1d42 0%, #09132c 100%);
+      padding: 6px 12px 14px;
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 6px;
+      align-items: center;
+      touch-action: pan-y;
+      user-select: none;
+      overflow: visible;
+    }
+
+    .nav-touch-glow {
+      position: absolute;
+      width: 115px;
+      height: 115px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(249, 214, 120, 0.42) 0%, rgba(229, 169, 40, 0.14) 45%, transparent 72%);
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(0.4);
+      opacity: 0;
+      transition: opacity 0.22s ease, transform 0.22s ease;
+      z-index: 1;
+      filter: blur(4px);
+    }
+
+    .nav-touch-glow.visible {
+      opacity: 1;
+      transform: translate(-50%, -50%) scale(1.18);
+    }
+
+    .fluid-nav-pill {
+      position: absolute;
+      top: 3px;
+      left: 0;
+      width: 68px;
+      height: calc(100% - 16px);
+      border-radius: 18px;
+      background: linear-gradient(180deg, #ffe28a 0%, #f5c349 52%, #e09e19 100%);
+      box-shadow:
+        0 8px 22px rgba(243, 196, 86, 0.52),
+        0 2px 6px rgba(0, 0, 0, 0.32),
+        inset 0 2px 2px rgba(255, 255, 255, 0.92),
+        inset 0 -2px 3px rgba(161, 98, 7, 0.42);
+      border: 1px solid rgba(255, 248, 220, 0.88);
+      z-index: 2;
+      pointer-events: none;
+      will-change: transform, width, border-radius;
+      transform-origin: center center;
+    }
+
+    .fluid-nav-pill::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 12%;
+      right: 12%;
+      height: 36%;
+      border-radius: 999px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0));
+      pointer-events: none;
+    }
+
+    .dock-tab {
+      position: relative;
+      z-index: 3;
+      background: transparent;
+      border: none;
+      color: #e2e8f0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 7px 4px;
+      border-radius: 16px;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: grab;
+      transition: color 0.2s ease, transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .dock-tab:active { cursor: grabbing; }
+
+    .dock-tab svg {
+      width: 21px;
+      height: 21px;
+      transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .dock-tab.active {
+      color: #0b1634;
+      transform: translateY(-3px);
+    }
+
+    .dock-tab.active svg { transform: scale(1.12); }
+
+    /* ==================== SUB-VIEWS (CHATBOT, STUDY, TESTS, PROFILE) ==================== */
+    .ai-status-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1.5px solid rgba(229, 169, 40, 0.5);
+      border-radius: 14px;
+      padding: 8px 12px;
+      margin-bottom: 10px;
+      font-size: 11.5px;
+      font-weight: 700;
+    }
+
+    .status-dot {
+      display: inline-block;
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      margin-right: 5px;
+    }
+
+    .dot-live { background: #16a34a; box-shadow: 0 0 8px #22c55e; }
+    .dot-demo { background: #f59e0b; }
+
+    .api-setup-btn {
+      background: #0d1b3e;
+      color: #f8d477;
+      border: none;
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .pill-selects {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 10px;
+      flex-wrap: wrap;
+    }
+
+    .glass-select {
+      background: rgba(255, 255, 255, 0.92);
+      border: 1.5px solid rgba(243, 196, 86, 0.6);
+      border-radius: 999px;
+      padding: 6px 12px;
+      font-family: inherit;
+      font-size: 12px;
+      font-weight: 700;
+      color: #111936;
+      outline: none;
+    }
+
+    .quick-prompts-strip {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      margin-bottom: 8px;
+    }
+    .quick-prompts-strip::-webkit-scrollbar { display: none; }
+
+    .prompt-pill {
+      background: #ffffff;
+      border: 1px solid rgba(17, 25, 54, 0.14);
+      border-radius: 999px;
+      padding: 6px 11px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #162b5c;
+      white-space: nowrap;
+      cursor: pointer;
+    }
+
+    .chat-stream {
+      background: rgba(255, 255, 255, 0.86);
+      border: var(--bevel-border);
+      border-radius: 22px;
+      padding: 14px;
+      min-height: 330px;
+      max-height: 410px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 11px;
+      box-shadow: var(--float-shadow);
+      margin-bottom: 12px;
+    }
+
+    .bubble {
+      max-width: 88%;
+      padding: 11px 14px;
+      border-radius: 18px;
+      font-size: 13px;
+      line-height: 1.52;
+      word-wrap: break-word;
+      animation: smoothAppear 0.24s ease;
+    }
+
+    .bubble.bot {
+      align-self: flex-start;
+      background: #ffffff;
+      color: #111936;
+      border: 1px solid rgba(229, 169, 40, 0.35);
+      border-bottom-left-radius: 5px;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04);
+    }
+
+    .bubble.user {
+      align-self: flex-end;
+      background: linear-gradient(135deg, #162b5c, #0b1634);
+      color: #ffffff;
+      border-bottom-right-radius: 5px;
+    }
+
+    .sol-box {
+      background: #fdf8ed;
+      border-left: 3.5px solid #e5a928;
+      padding: 8px 10px;
+      border-radius: 8px;
+      margin-top: 6px;
+      font-size: 12.5px;
+    }
+
+    .bot-actions-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding-top: 7px;
+      border-top: 1px dashed rgba(17, 25, 54, 0.12);
+      flex-wrap: wrap;
+    }
+
+    .mini-act-btn {
+      background: #f8f2e4;
+      border: 1px solid rgba(229, 169, 40, 0.45);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-family: inherit;
+      font-size: 11px;
+      font-weight: 700;
+      color: #162b5c;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: transform 0.12s ease, background 0.15s ease;
+    }
+
+    .mini-act-btn:active { transform: scale(0.94); }
+
+    .mini-act-btn.speaking {
+      background: #0d1b3e;
+      color: #f8d477;
+      border-color: #f3c456;
+    }
+
+    .study-item-card {
+      background: rgba(255, 255, 255, 0.94);
+      border: var(--bevel-border);
+      border-radius: 18px;
+      padding: 13px 14px;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: var(--float-shadow);
+    }
+
+    .tag-pill {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: #fef3c7;
+      color: #b45309;
+      margin-bottom: 4px;
+    }
+
+    .quiz-option-btn {
+      width: 100%;
+      text-align: left;
+      padding: 11px 14px;
+      border-radius: 14px;
+      border: 1.5px solid #e5e7eb;
+      background: #fffdf9;
+      margin-top: 9px;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 700;
+      color: #111936;
+      cursor: pointer;
+      transition: transform 0.12s ease;
+    }
+
+    .quiz-option-btn:active { transform: scale(0.98); }
+    .quiz-option-btn.correct { background: #dcfce7; border-color: #22c55e; color: #15803d; }
+    .quiz-option-btn.wrong { background: #fee2e2; border-color: #ef4444; color: #b91c1c; }
+
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 18, 43, 0.55);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 70;
+      padding: 16px;
+    }
+
+    .modal-overlay.open { display: flex; }
+
+    .modal-card {
+      background: #fffcf5;
+      border: 2px solid #e5a928;
+      border-radius: 24px;
+      width: 100%;
+      max-width: 380px;
+      padding: 18px;
+      box-shadow: 0 22px 48px rgba(0, 0, 0, 0.3);
+      max-height: 82vh;
+      overflow-y: auto;
+      animation: smoothAppear 0.24s ease;
+    }
+
+    .modal-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .close-x {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: none;
+      background: #f3e8d2;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .navy-cta {
+      width: 100%;
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid #f3c456;
+      background: linear-gradient(135deg, #162b5c, #0b1634);
+      color: #f8d477;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 800;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1.5px solid #d6c5a3;
+      background: #ffffff;
+      font-family: inherit;
+      font-size: 13px;
+      margin-top: 6px;
+      margin-bottom: 10px;
+      outline: none;
+    }
+
+    .form-input:focus { border-color: #162b5c; }
+  </style>
+</head>
+<body>
+
+<div class="phone-shell" id="phoneShell">
+  <svg class="bg-silk-wave" viewBox="0 0 430 520" fill="none" preserveAspectRatio="none">
+    <path d="M-20 80 C 120 20, 260 180, 450 90 L 450 260 C 260 340, 110 210, -20 290 Z" fill="url(#silkGrad1)"/>
+    <path d="M-20 340 C 140 280, 290 420, 450 350 L 450 500 L -20 500 Z" fill="url(#silkGrad2)"/>
+    <defs>
+      <linearGradient id="silkGrad1" x1="0" y1="0" x2="430" y2="260" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#f3d699" stop-opacity="0.35"/>
+        <stop offset="100%" stop-color="#fff9ec" stop-opacity="0.05"/>
+      </linearGradient>
+      <linearGradient id="silkGrad2" x1="0" y1="300" x2="430" y2="500" gradientUnits="userSpaceOnUse">
+        <stop offset="0%" stop-color="#edd093" stop-opacity="0.3"/>
+        <stop offset="100%" stop-color="#fbf3e4" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+  </svg>
+
+  <!-- ==================== TOP ASYMMETRIC CURVED HEADER ==================== -->
+  <div class="wave-header-wrap">
+    <svg class="wave-header-bg" viewBox="0 0 430 126" fill="none" preserveAspectRatio="none">
+      <path d="M0 0 H430 V106 C365 128, 285 118, 210 96 C135 74, 62 72, 0 92 Z" fill="url(#goldWaveRim)"/>
+      <path d="M0 0 H430 V99 C365 121, 285 111, 210 89 C135 67, 62 65, 0 85 Z" fill="url(#navyWaveGrad)"/>
+      <defs>
+        <linearGradient id="navyWaveGrad" x1="0" y1="0" x2="430" y2="110" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#0a142f"/>
+          <stop offset="55%" stop-color="#142754"/>
+          <stop offset="100%" stop-color="#1b346e"/>
+        </linearGradient>
+        <linearGradient id="goldWaveRim" x1="0" y1="70" x2="430" y2="120" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#f7d883"/>
+          <stop offset="50%" stop-color="#e3a424"/>
+          <stop offset="100%" stop-color="#f5cf6e"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <header class="header-bar">
+      <button class="hdr-icon-btn" onclick="openMenuDrawer()" aria-label="Menu">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="12" x2="17" y2="12"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="brand-lockup">
+        <div class="logo-orb">
+          <svg width="38" height="38" viewBox="0 0 64 64" fill="none">
+            <polygon points="32,6 55,15 32,24 9,15" fill="#f3c456"/>
+            <rect x="20" y="18" width="24" height="5" rx="2" fill="#c78818"/>
+            <line x1="51" y1="16" x2="51" y2="27" stroke="#fde68a" stroke-width="2.4" stroke-linecap="round"/>
+            <rect x="14" y="23" width="36" height="27" rx="13" fill="#ffffff" stroke="#f3c456" stroke-width="2"/>
+            <rect x="19" y="28" width="26" height="16" rx="8" fill="#0b1634"/>
+            <circle cx="27" cy="36" r="3.2" fill="#38bdf8"/>
+            <circle cx="37" cy="36" r="3.2" fill="#38bdf8"/>
+            <path d="M28 41 Q32 44 36 41" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M21 53 C21 50 43 50 43 53 L46 59 L18 59 Z" fill="#f3c456"/>
+          </svg>
+        </div>
+        <div class="brand-copy">
+          <h1>Sir Mahee<br>DoubtBot AI ✨</h1>
+          <div class="tagline">Study • Ask • Solve</div>
+        </div>
+      </div>
+
+      <button class="hdr-icon-btn" onclick="openApiSettings()" aria-label="AI Key Settings" title="Gemini AI Key">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span class="notif-badge" id="hdrApiDot"></span>
+      </button>
+    </header>
+  </div>
+
+  <!-- ==================== HOME DASHBOARD ==================== -->
+  <main id="view-home" class="view-section active">
+    <section class="greeting-hero">
+      <div class="greeting-copy">
+        <h2 id="homeGreetingTitle">Good Morning, Student 👋</h2>
+        <p>Ask your doubt and get instant, clear solutions.</p>
+      </div>
+      <svg class="books-bulb-art" viewBox="0 0 96 96" fill="none">
+        <circle cx="48" cy="24" r="22" fill="url(#bulbHalo)"/>
+        <line x1="48" y1="2" x2="48" y2="7" stroke="#eab308" stroke-width="2.4" stroke-linecap="round"/>
+        <line x1="28" y1="10" x2="32" y2="14" stroke="#eab308" stroke-width="2.4" stroke-linecap="round"/>
+        <line x1="68" y1="10" x2="64" y2="14" stroke="#eab308" stroke-width="2.4" stroke-linecap="round"/>
+        <line x1="23" y1="24" x2="28" y2="24" stroke="#eab308" stroke-width="2.4" stroke-linecap="round"/>
+        <line x1="73" y1="24" x2="68" y2="24" stroke="#eab308" stroke-width="2.4" stroke-linecap="round"/>
+        <path d="M48 10 C40 10 35 16 35 22 C35 27 38 30 41 34 H55 C58 30 61 27 61 22 C61 16 56 10 48 10 Z" fill="#fde047" stroke="#ca8a04" stroke-width="2"/>
+        <rect x="42" y="34" width="12" height="5" rx="2" fill="#475569"/>
+        <rect x="16" y="67" width="62" height="12" rx="4" fill="#1e3a8a"/>
+        <rect x="20" y="69" width="54" height="8" rx="2" fill="#ffffff"/>
+        <rect x="21" y="54" width="54" height="12" rx="4" fill="#15803d"/>
+        <rect x="25" y="56" width="46" height="8" rx="2" fill="#ffffff"/>
+        <rect x="19" y="41" width="56" height="12" rx="4" fill="#c2410c"/>
+        <rect x="23" y="43" width="48" height="8" rx="2" fill="#ffffff"/>
+        <defs>
+          <radialGradient id="bulbHalo" cx="0.5" cy="0.5" r="0.5">
+            <stop offset="0%" stop-color="#facc15" stop-opacity="0.55"/>
+            <stop offset="100%" stop-color="#facc15" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+      </svg>
+    </section>
+
+    <div class="floating-search-pill">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+        <circle cx="9.5" cy="11.5" r="0.8" fill="#1e293b"/>
+        <circle cx="12.5" cy="11.5" r="0.8" fill="#1e293b"/>
+        <circle cx="15.5" cy="11.5" r="0.8" fill="#1e293b"/>
+      </svg>
+      <input type="text" id="homeDoubtField" placeholder="अपना Doubt यहाँ लिखें..." onkeydown="if(event.key==='Enter') handleHomeSubmit()" />
+      <button class="send-orb-btn" onclick="handleHomeSubmit()" aria-label="Send">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="action-pills-row">
+      <button class="float-chip" onclick="openPhotoPicker()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="#7c3aed"><path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+        <span>Photo से पूछें</span>
+      </button>
+      <button class="float-chip" id="voiceBtn" onclick="startVoiceInput()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="#7c3aed"><path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z"/></svg>
+        <span>बोलकर पूछें</span>
+      </button>
+      <button class="float-chip" onclick="openPdfPicker()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="#6d28d9"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+        <span>PDF से पूछें</span>
+      </button>
+    </div>
+    <input type="file" id="photoFile" accept="image/*" hidden onchange="onPhotoSelected(event)" />
+    <input type="file" id="pdfFile" accept=".txt,.md,.csv,.pdf" hidden onchange="onDocSelected(event)" />
+
+    <section class="ai-hero-card" onclick="switchView('chatbot')">
+      <svg class="hero-bot-svg" viewBox="0 0 96 104" fill="none">
+        <polygon points="44,6 76,17 44,28 12,17" fill="#1e293b" stroke="#f3c456" stroke-width="1.5"/>
+        <rect x="28" y="21" width="32" height="6" rx="2" fill="#0f172a"/>
+        <line x1="71" y1="18" x2="71" y2="33" stroke="#facc15" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="71" cy="34" r="2.5" fill="#facc15"/>
+        <rect x="18" y="27" width="52" height="36" rx="17" fill="#ffffff" stroke="#cbd5e1" stroke-width="2"/>
+        <rect x="24" y="34" width="40" height="22" rx="10" fill="#09132c"/>
+        <circle cx="36" cy="44" r="4.2" fill="#38bdf8"/>
+        <circle cx="52" cy="44" r="4.2" fill="#38bdf8"/>
+        <path d="M39 50 Q44 54 49 50" stroke="#38bdf8" stroke-width="2.2" stroke-linecap="round"/>
+        <rect x="24" y="66" width="40" height="30" rx="14" fill="#f8fafc" stroke="#cbd5e1" stroke-width="2"/>
+        <rect x="33" y="74" width="22" height="12" rx="6" fill="#09132c"/>
+        <circle cx="44" cy="80" r="3.5" fill="#38bdf8"/>
+        <path d="M65 76 L81 60" stroke="#ffffff" stroke-width="8" stroke-linecap="round"/>
+        <circle cx="82" cy="57" r="5.5" fill="#ffffff"/>
+        <line x1="82" y1="53" x2="82" y2="45" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round"/>
+      </svg>
+
+      <div class="hero-details">
+        <h3>AI Doubt Solver</h3>
+        <ul class="hero-checklist">
+          <li><span class="green-tick">✓</span> Step-by-Step Solution</li>
+          <li><span class="green-tick">✓</span> Easy Explanation (Hindi/English)</li>
+          <li><span class="green-tick">✓</span> Class 5 – 10 (RBSE/NCERT)</li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="features-3x2">
+      <div class="float-tile" onclick="switchView('chatbot')">
+        <div class="tile-icon-wrap">
+          <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
+            <path d="M8 14C8 10.686 11.134 8 15 8H29C32.866 8 36 10.686 36 14V24C36 27.314 32.866 30 29 30H18L11 35V30C9.2 29.2 8 26.8 8 24V14Z" fill="url(#chatBlue)"/>
+            <circle cx="17" cy="19" r="2" fill="#fff"/>
+            <circle cx="22" cy="19" r="2" fill="#fff"/>
+            <circle cx="27" cy="19" r="2" fill="#fff"/>
+            <path d="M22 22C22 19.8 24.2 18 27 18H36C38.8 18 41 19.8 41 22V30C41 32.2 38.8 34 36 34V38L31 34H27C24.2 34 22 32.2 22 30V22Z" fill="#0ea5e9" fill-opacity="0.85"/>
+            <defs>
+              <linearGradient id="chatBlue" x1="8" y1="8" x2="36" y2="35" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#38bdf8"/><stop offset="1" stop-color="#0284c7"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h4>Ask Doubt</h4>
+        <span>(Chatbot)</span>
+      </div>
+
+      <div class="float-tile" onclick="openPhotoPicker()">
+        <div class="tile-icon-wrap">
+          <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
+            <rect x="6" y="13" width="36" height="25" rx="6" fill="url(#camPurp)"/>
+            <path d="M16 13L19 9H29L32 13H16Z" fill="#7c3aed"/>
+            <circle cx="24" cy="25.5" r="7.5" fill="#ffffff"/>
+            <circle cx="24" cy="25.5" r="4.5" fill="#7c3aed"/>
+            <circle cx="36" cy="18" r="1.8" fill="#fde047"/>
+            <defs>
+              <linearGradient id="camPurp" x1="6" y1="13" x2="42" y2="38" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#9333ea"/><stop offset="1" stop-color="#5b21b6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h4>Scan & Solve</h4>
+        <span>(Question Photo)</span>
+      </div>
+
+      <div class="float-tile" onclick="openStepDemo()">
+        <div class="tile-icon-wrap">
+          <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
+            <path d="M24 13C19 10 11 10 7 12V35C11 33 19 33 24 36C29 33 37 33 41 35V12C37 10 29 10 24 13Z" fill="url(#bookOrg)"/>
+            <line x1="24" y1="13" x2="24" y2="36" stroke="#fff7ed" stroke-width="2"/>
+            <defs>
+              <linearGradient id="bookOrg" x1="7" y1="10" x2="41" y2="36" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#fb923c"/><stop offset="1" stop-color="#ea580c"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h4>Show Solution</h4>
+        <span>(Step by Step)</span>
+      </div>
+
+      <div class="float-tile" onclick="switchView('tests')">
+        <div class="tile-icon-wrap">
+          <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
+            <rect x="11" y="10" width="26" height="31" rx="5" fill="url(#clipInd)"/>
+            <rect x="18" y="7" width="12" height="6" rx="3" fill="#c4b5fd"/>
+            <path d="M16 20L18 22L22 18" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="25" y1="20" x2="32" y2="20" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M16 27L18 29L22 25" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <line x1="25" y1="27" x2="32" y2="27" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="clipInd" x1="11" y1="10" x2="37" y2="41" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#8b5cf6"/><stop offset="1" stop-color="#4f46e5"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h4>Exams & Practice</h4>
+        <span>(Quiz / Test)</span>
+      </div>
+
+      <div class="float-tile" onclick="switchView('study')">
+        <div class="tile-icon-wrap">
+          <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
+            <path d="M7 15C7 12.79 8.79 11 11 11H19L23 15H37C39.21 15 41 16.79 41 19V34C41 36.21 39.21 38 37 38H11C8.79 38 7 36.21 7 34V15Z" fill="url(#folderGold)"/>
+            <rect x="7" y="19" width="34" height="19" rx="4" fill="#fbbf24"/>
+            <defs>
+              <linearGradient id="folderGold" x1="7" y1="11" x2="41" y2="38" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#f59e0b"/><stop offset="1" stop-color="#d97706"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <h4>Study Material</h4>
+        <span>(Notes • PDF)</span>
+      </div>
+
+      <div class="float-tile" onclick="openHistoryDialog()">
+        <div class="tile-icon-wrap">
+          <svg width="42" height="42" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="15" fill="#ffe4e6" stroke="#f43f5e" stroke-width="3"/>
+            <path d="M24 16V24L29 27" stroke="#e11d48" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M11 17L9 22L14 21" stroke="#f43f5e" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h4>My Doubts</h4>
+        <span>(History)</span>
+      </div>
+    </section>
+
+    <div class="section-title-row">
+      <h3>📚 Quick Subjects</h3>
+      <button class="see-all-link" onclick="switchView('study')">See All →</button>
+    </div>
+
+    <section class="quick-subjects-grid">
+      <div class="subj-float-card" onclick="askSubject('English')">
+        <div class="subj-inner-box bg-eng">A</div>
+        <p>English</p>
+      </div>
+      <div class="subj-float-card" onclick="askSubject('हिंदी')">
+        <div class="subj-inner-box bg-hin">अ</div>
+        <p>हिंदी</p>
+      </div>
+      <div class="subj-float-card" onclick="askSubject('Maths')">
+        <div class="subj-inner-box bg-mth">Σ</div>
+        <p>Maths</p>
+      </div>
+      <div class="subj-float-card" onclick="askSubject('Science')">
+        <div class="subj-inner-box bg-sci">🧪</div>
+        <p>Science</p>
+      </div>
+      <div class="subj-float-card" onclick="askSubject('S.St.')">
+        <div class="subj-inner-box bg-sst">🌍</div>
+        <p>S.St.</p>
+      </div>
+    </section>
+
+    <section class="floating-panel">
+      <div class="progress-header">
+        <div class="target-orb">🎯</div>
+        <div class="progress-meta">
+          <div class="progress-labels">
+            <h4>My Study Progress</h4>
+            <span id="pctLabel">60%</span>
+          </div>
+          <div class="progress-rail">
+            <div class="progress-bar-fill" id="pctBar" style="width: 60%;"></div>
+          </div>
+        </div>
+      </div>
+      <div class="metrics-trio">
+        <div class="metric-cell">
+          <div class="metric-num">🔥 <span id="streakHome">7</span></div>
+          <div class="metric-sub">Day Streak</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-num">✅ <span id="solvedCounter">24</span></div>
+          <div class="metric-sub">Doubts Solved</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-num">📊 <span id="accHome">82%</span></div>
+          <div class="metric-sub">Accuracy</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="floating-panel">
+      <div class="how-head">
+        <div class="play-dark-circle">▶</div>
+        <h3 style="font-size:15.5px;font-weight:800;">How to Use?</h3>
+      </div>
+      <div class="how-steps-row">
+        <div class="how-arch-card">
+          <div class="how-step-ico">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="#7c3aed"><path d="M9 3L7.17 5H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2h-3.17L15 3H9zm3 15c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5z"/></svg>
+          </div>
+          <div class="how-step-num">1</div>
+          <div class="how-step-txt">Question<br>Upload / Type</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="how-arch-card">
+          <div class="how-step-ico">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <rect x="4" y="6" width="16" height="13" rx="6" fill="#0ea5e9"/>
+              <rect x="7" y="9" width="10" height="7" rx="3.5" fill="#09132c"/>
+              <circle cx="10" cy="12.5" r="1.3" fill="#38bdf8"/>
+              <circle cx="14" cy="12.5" r="1.3" fill="#38bdf8"/>
+              <line x1="12" y1="2" x2="12" y2="6" stroke="#0ea5e9" stroke-width="2"/>
+            </svg>
+          </div>
+          <div class="how-step-num">2</div>
+          <div class="how-step-txt">AI Solves<br>with Explanation</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="how-arch-card">
+          <div class="how-step-ico">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+              <circle cx="12" cy="12" r="9" fill="#22c55e"/>
+              <path d="M8.5 12.5L11 15L16 9.5" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="how-step-num">3</div>
+          <div class="how-step-txt">Learn &<br>Clear Doubt</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="exam-special-card" onclick="switchView('tests')">
+      <div class="exam-bullseye">🎯</div>
+      <div class="exam-copy">
+        <h4>Exam Special</h4>
+        <p>RBSE • NCERT • Practice Sets • PYQs</p>
+      </div>
+      <div class="exam-go-circle">→</div>
+    </section>
+
+    <section class="floating-panel">
+      <div class="section-title-row" style="margin-bottom:4px;">
+        <h3>🧊 Latest Features ✨</h3>
+      </div>
+      <div class="latest-stack">
+        <div class="latest-capsule" onclick="switchView('chatbot')">
+          <div class="latest-badge-ico ico-amber">⚡</div>
+          <div class="latest-meta">
+            <h5>Live Gemini AI Solver</h5>
+            <p>Text और Photo से तुरंत Step-by-Step समाधान</p>
+          </div>
+          <span class="right-chev">›</span>
+        </div>
+
+        <div class="latest-capsule" onclick="switchView('chatbot')">
+          <div class="latest-badge-ico ico-purple">🔊</div>
+          <div class="latest-meta">
+            <h5>Audio Read-Aloud (सुनकर समझें)</h5>
+            <p>हिंदी और अंग्रेजी में बोलकर उत्तर सुनें</p>
+          </div>
+          <span class="right-chev">›</span>
+        </div>
+
+        <div class="latest-capsule" onclick="openHistoryDialog()">
+          <div class="latest-badge-ico ico-pink">💾</div>
+          <div class="latest-meta">
+            <h5>Auto-Save Progress & History</h5>
+            <p>आपके सभी Doubts और प्रोग्रेस सुरक्षित</p>
+          </div>
+          <span class="right-chev">›</span>
+        </div>
+
+        <div class="latest-capsule" onclick="switchView('study')">
+          <div class="latest-badge-ico ico-cyan">📥</div>
+          <div class="latest-meta">
+            <h5>Notes & PDFs</h5>
+            <p>Chapter-wise Study Material</p>
+          </div>
+          <span class="right-chev">›</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== CHATBOT VIEW ==================== -->
+  <section id="view-chatbot" class="view-section">
+    <div class="section-title-row">
+      <h3>🤖 AI Doubt Solver</h3>
+      <button class="see-all-link" onclick="resetChat()">Clear Chat</button>
+    </div>
+
+    <div class="ai-status-bar">
+      <span id="aiModeText"><span class="status-dot dot-demo"></span>Demo Mode (API Key सेट करें)</span>
+      <button class="api-setup-btn" onclick="openApiSettings()">🔑 Gemini Key</button>
+    </div>
+
+    <div class="pill-selects">
+      <select id="clsSelect" class="glass-select" onchange="savePreferences()">
+        <option value="Class 5">Class 5 (RBSE/NCERT)</option>
+        <option value="Class 6">Class 6 (RBSE/NCERT)</option>
+        <option value="Class 7">Class 7 (RBSE/NCERT)</option>
+        <option value="Class 8">Class 8 (RBSE/NCERT)</option>
+        <option value="Class 9">Class 9 (RBSE/NCERT)</option>
+        <option value="Class 10" selected>Class 10 (RBSE/NCERT)</option>
+      </select>
+      <select id="lngSelect" class="glass-select" onchange="savePreferences()">
+        <option value="Hindi + English">Hindi + English</option>
+        <option value="Simple Hindi">सरल हिंदी</option>
+        <option value="English">English</option>
+      </select>
+    </div>
+
+    <div class="quick-prompts-strip">
+      <button class="prompt-pill" onclick="askSample('Photosynthesis क्या है? Step-by-Step समझाएं')">🌿 Photosynthesis</button>
+      <button class="prompt-pill" onclick="askSample('Solve: 2x + 5 = 15 step by step')">📐 2x + 5 = 15</button>
+      <button class="prompt-pill" onclick="askSample('Present Continuous Tense के नियम उदाहरण सहित')">🔤 Tense Rules</button>
+      <button class="prompt-pill" onclick="askSample('1857 की क्रांति के प्रमुख कारण लिखिए')">🏛️ 1857 क्रांति</button>
+    </div>
+
+    <div class="chat-stream" id="chatStream"></div>
+
+    <div class="floating-search-pill">
+      <button onclick="openPhotoPicker()" style="background:none;border:none;font-size:18px;cursor:pointer;" title="Photo से पूछें">📷</button>
+      <button onclick="startVoiceInput()" style="background:none;border:none;font-size:17px;cursor:pointer;" title="बोलकर पूछें">🎤</button>
+      <input type="text" id="chatField" placeholder="अपना Doubt यहाँ लिखें..." onkeydown="if(event.key==='Enter') handleChatSend()" />
+      <button class="send-orb-btn" onclick="handleChatSend()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ==================== STUDY MATERIAL VIEW ==================== -->
+  <section id="view-study" class="view-section">
+    <div class="section-title-row">
+      <h3>📁 Study Material (Notes • PDF)</h3>
+      <span style="font-size:11px;font-weight:800;color:#b45309;">RBSE & NCERT</span>
+    </div>
+
+    <div class="study-item-card">
+      <div>
+        <span class="tag-pill">English Grammar • Class 5–10</span>
+        <h4 style="font-size:14px;font-weight:800;">Tenses & Active-Passive Voice Notes</h4>
+        <p style="font-size:11.5px;color:#525d78;margin-top:2px;">सरल हिंदी-अंग्रेजी नियम + Examples</p>
+      </div>
+      <button class="send-orb-btn" onclick="previewNote('English Grammar: Tenses & Voice', '1. Present Indefinite: Subject + V1(s/es) + Object\n2. Past Indefinite: Subject + V2 + Object\n3. Future Indefinite: Subject + will/shall + V1 + Object\n\nQuick Tip: Singular Subject के साथ s/es का ध्यान रखें।')">👁️</button>
+    </div>
+
+    <div class="study-item-card">
+      <div>
+        <span class="tag-pill">Maths • Formula Sheet</span>
+        <h4 style="font-size:14px;font-weight:800;">Trigonometry & Mensuration Formulas</h4>
+        <p style="font-size:11.5px;color:#525d78;margin-top:2px;">Board Exam Revision PDF</p>
+      </div>
+      <button class="send-orb-btn" onclick="previewNote('Maths Formula Sheet', '• sin²θ + cos²θ = 1\n• 1 + tan²θ = sec²θ\n• वृत्त का क्षेत्रफल = πr²\n• बेलन का आयतन = πr²h')">👁️</button>
+    </div>
+
+    <div class="study-item-card">
+      <div>
+        <span class="tag-pill">Science • Class 10</span>
+        <h4 style="font-size:14px;font-weight:800;">रासायनिक अभिक्रियाएँ एवं समीकरण</h4>
+        <p style="font-size:11.5px;color:#525d78;margin-top:2px;">Chapter-wise Short Notes</p>
+      </div>
+      <button class="send-orb-btn" onclick="previewNote('Science: रासायनिक अभिक्रियाएँ', '1. संयोजन अभिक्रिया: C + O₂ → CO₂\n2. वियोजन अभिक्रिया: एकल अभिकारक टूटकर छोटे उत्पाद बनाता है।')">👁️</button>
+    </div>
+  </section>
+
+  <!-- ==================== TESTS / PYQs VIEW ==================== -->
+  <section id="view-tests" class="view-section">
+    <div class="section-title-row">
+      <h3>📋 Exams & Practice (PYQs)</h3>
+      <span style="font-size:12px;font-weight:800;color:#16a34a;" id="scoreTag">Score: 0/0</span>
+    </div>
+
+    <div class="floating-panel">
+      <span class="tag-pill" id="qSubjectTag">RBSE / NCERT Practice</span>
+      <h4 id="qTitle" style="font-size:15px;font-weight:800;margin-top:4px;line-height:1.4;">Loading...</h4>
+      <div id="qOptions"></div>
+      <p id="qResultMsg" style="font-size:12.5px;font-weight:700;margin-top:10px;"></p>
+      <button class="navy-cta" onclick="nextQuestion()">अगला प्रश्न (Next) →</button>
+    </div>
+  </section>
+
+  <!-- ==================== PROFILE VIEW ==================== -->
+  <section id="view-profile" class="view-section">
+    <div class="floating-panel" style="text-align:center;">
+      <div class="logo-orb" style="width:68px;height:68px;margin:0 auto 10px;">
+        <span style="font-size:32px;">🎓</span>
+      </div>
+      <h3 id="profNameDisplay" style="font-size:18px;font-weight:800;">Student</h3>
+      <p id="profClassDisplay" style="font-size:12.5px;color:#525d78;font-weight:600;">Class 10 • RBSE / NCERT</p>
+      <div class="metrics-trio" style="margin-top:14px;">
+        <div class="metric-cell">
+          <div class="metric-num">🔥 <span id="profStreak">7</span></div>
+          <div class="metric-sub">Day Streak</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-num">✅ <span id="profCount">24</span></div>
+          <div class="metric-sub">Solved</div>
+        </div>
+        <div class="metric-cell">
+          <div class="metric-num">📊 <span id="profAcc">82%</span></div>
+          <div class="metric-sub">Accuracy</div>
+        </div>
+      </div>
+      <button class="navy-cta" onclick="openProfileEditor()">✏️ Edit Student Profile</button>
+    </div>
+
+    <div class="floating-panel">
+      <h4 style="font-size:14.5px;font-weight:800;margin-bottom:6px;">⚙️ AI & Auto-Save Controls</h4>
+      <p style="font-size:12.5px;color:#525d78;line-height:1.5;">
+        आपकी प्रोग्रेस, चैट हिस्ट्री और Gemini API Key इस फोन में <strong>Auto-Save</strong> रहती है।
+      </p>
+      <button class="navy-cta" onclick="openApiSettings()">🔑 Manage Gemini API Key</button>
+      <button class="navy-cta" onclick="openHistoryDialog()">🕒 My Saved Doubts History</button>
+    </div>
+  </section>
+
+  <!-- ==================== BOTTOM CURVED WAVE & TOUCH-DRAGGABLE FLUID NAV ==================== -->
+  <div class="bottom-dock-wrap">
+    <svg class="bottom-wave-svg" viewBox="0 0 430 28" fill="none" preserveAspectRatio="none">
+      <path d="M0 14 C 95 -4, 195 28, 305 16 C 365 9, 405 2, 430 0 V28 H0 Z" fill="url(#bottomGoldRim)"/>
+      <path d="M0 19 C 95 1, 195 31, 305 20 C 365 13, 405 6, 430 4 V28 H0 Z" fill="#0e1d42"/>
+      <defs>
+        <linearGradient id="bottomGoldRim" x1="0" y1="0" x2="430" y2="28" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#f7d883"/>
+          <stop offset="50%" stop-color="#e3a424"/>
+          <stop offset="100%" stop-color="#f7d883"/>
+        </linearGradient>
+      </defs>
+    </svg>
+
+    <nav class="bottom-nav-bar" id="draggableNav">
+      <div class="nav-touch-glow" id="navTouchGlow"></div>
+      <div class="fluid-nav-pill" id="fluidNavPill"></div>
+
+      <button class="dock-tab active" data-tab="home" id="dock-home">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+        <span>Home</span>
+      </button>
+      <button class="dock-tab" data-tab="chatbot" id="dock-chatbot">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="7" width="18" height="12" rx="5"/><circle cx="9" cy="13" r="1.4" fill="currentColor"/><circle cx="15" cy="13" r="1.4" fill="currentColor"/><path d="M12 3v4"/></svg>
+        <span>Chatbot</span>
+      </button>
+      <button class="dock-tab" data-tab="study" id="dock-study">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        <span>Study</span>
+      </button>
+      <button class="dock-tab" data-tab="tests" id="dock-tests">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="3" width="16" height="18" rx="2.5"/><path d="M9 8h6M9 12h6M9 16h4"/></svg>
+        <span>Tests</span>
+      </button>
+      <button class="dock-tab" data-tab="profile" id="dock-profile">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 20c1.5-4 5-6 8-6s6.5 2 8 6"/></svg>
+        <span>Profile</span>
+      </button>
+    </nav>
+  </div>
+</div>
+
+<!-- Modal Dialog -->
+<div class="modal-overlay" id="modalBox" onclick="if(event.target===this) closeDialog()">
+  <div class="modal-card">
+    <div class="modal-top">
+      <h4 id="dialogHeading" style="font-size:16px;font-weight:800;">Details</h4>
+      <button class="close-x" onclick="closeDialog()">✕</button>
+    </div>
+    <div id="dialogContent" style="font-size:13px;line-height:1.55;"></div>
+  </div>
+</div>
+
+<script>
+  // ==================== 1. MULTI-LAYER AUTO-SAVE STATE MANAGEMENT ====================
+  const STORAGE_KEY = 'sir_mahee_doubtbot_v4';
+
+  const defaultState = {
+    apiKey: '',
+    model: 'gemini-2.5-flash',
+    studentName: 'Student',
+    selectedClass: 'Class 10',
+    selectedLang: 'Hindi + English',
+    totalSolved: 24,
+    studyPct: 60,
+    streak: 7,
+    lastActiveDate: new Date().toDateString(),
+    quizScore: 0,
+    quizAttempted: 0,
+    savedDoubts: [
+      { q: "Photosynthesis (प्रकाश संश्लेषण) क्या है?", tag: "Science", time: "Today" },
+      { q: "Solve: 2x + 5 = 15 step by step", tag: "Maths", time: "Yesterday" }
+    ],
+    chatHistory: []
+  };
+
+  function readPersistentRaw() {
+    // 1. Try localStorage
+    try {
+      const ls = window.localStorage.getItem(STORAGE_KEY);
+      if (ls) return ls;
+    } catch (e) {}
+    // 2. Fallback to window.name (works even in Android content:// & file://)
+    try {
+      if (window.name && window.name.startsWith('SMDB:')) {
+        return window.name.slice(5);
+      }
+    } catch (e) {}
+    // 3. Fallback to cookie
+    try {
+      const match = document.cookie.match(new RegExp('(?:^|; )' + STORAGE_KEY + '=([^;]*)'));
+      if (match) return decodeURIComponent(match[1]);
+    } catch (e) {}
+    return null;
+  }
+
+  function writePersistentRaw(jsonStr) {
+    let savedAnywhere = false;
+    try {
+      window.localStorage.setItem(STORAGE_KEY, jsonStr);
+      savedAnywhere = true;
+    } catch (e) {}
+    try {
+      window.name = 'SMDB:' + jsonStr;
+      savedAnywhere = true;
+    } catch (e) {}
+    try {
+      document.cookie = `${STORAGE_KEY}=${encodeURIComponent(jsonStr)}; max-age=31536000; path=/; SameSite=Lax`;
+      savedAnywhere = true;
+    } catch (e) {}
+    return savedAnywhere;
+  }
+
+  let appState = loadAppState();
+
+  function loadAppState() {
+    try {
+      const raw = readPersistentRaw();
+      if (!raw) return { ...defaultState };
+      const parsed = JSON.parse(raw);
+      return { ...defaultState, ...parsed };
+    } catch (e) {
+      return { ...defaultState };
+    }
+  }
+
+  function saveAppState() {
+    try {
+      // Keep window.name / cookie compact by limiting stored chat messages
+      const compactState = {
+        ...appState,
+        chatHistory: (appState.chatHistory || []).slice(-12)
+      };
+      writePersistentRaw(JSON.stringify(compactState));
+    } catch (e) {
+      console.warn('Storage fallback error', e);
+    }
+    syncAllUI();
+  }
+
+  function checkDailyStreak() {
+    const today = new Date().toDateString();
+    if (appState.lastActiveDate !== today) {
+      const yesterday = new Date(Date.now() - 86400000).toDateString();
+      appState.streak = (appState.lastActiveDate === yesterday) ? appState.streak + 1 : 1;
+      appState.lastActiveDate = today;
+      saveAppState();
+    }
+  }
+
+  function syncAllUI() {
+    document.getElementById('homeGreetingTitle').textContent = `Good Morning, ${appState.studentName} 👋`;
+    document.getElementById('profNameDisplay').textContent = appState.studentName;
+    document.getElementById('profClassDisplay').textContent = `${appState.selectedClass} • RBSE / NCERT`;
+
+    document.getElementById('clsSelect').value = appState.selectedClass;
+    document.getElementById('lngSelect').value = appState.selectedLang;
+
+    document.getElementById('solvedCounter').textContent = appState.totalSolved;
+    document.getElementById('profCount').textContent = appState.totalSolved;
+    document.getElementById('streakHome').textContent = appState.streak;
+    document.getElementById('profStreak').textContent = appState.streak;
+
+    document.getElementById('pctLabel').textContent = appState.studyPct + '%';
+    document.getElementById('pctBar').style.width = appState.studyPct + '%';
+
+    const acc = appState.quizAttempted > 0
+      ? Math.round((appState.quizScore / appState.quizAttempted) * 100) + '%'
+      : '82%';
+    document.getElementById('accHome').textContent = acc;
+    document.getElementById('profAcc').textContent = acc;
+    document.getElementById('scoreTag').textContent = `Score: ${appState.quizScore}/${appState.quizAttempted}`;
+
+    const aiModeEl = document.getElementById('aiModeText');
+    const hdrDot = document.getElementById('hdrApiDot');
+    if (appState.apiKey && appState.apiKey.trim().length > 10) {
+      aiModeEl.innerHTML = `<span class="status-dot dot-live"></span>Live Gemini AI Active (${appState.model})`;
+      hdrDot.style.background = '#22c55e';
+    } else {
+      aiModeEl.innerHTML = `<span class="status-dot dot-demo"></span>Offline Mode (Live AI के लिए Key डालें)`;
+      hdrDot.style.background = '#ef4444';
+    }
+  }
+
+  function savePreferences() {
+    appState.selectedClass = document.getElementById('clsSelect').value;
+    appState.selectedLang = document.getElementById('lngSelect').value;
+    saveAppState();
+  }
+
+  // ==================== 2. AUDIO READ-ALOUD ENGINE (Web Speech TTS) ====================
+  let currentSpeakingBtn = null;
+
+  function cleanTextForSpeech(rawText) {
+    return rawText
+      .replace(/<[^>]*>/g, ' ')
+      .replace(/[*#_`~]/g, '')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  function toggleReadAloud(btn, encodedText) {
+    if (!('speechSynthesis' in window)) {
+      showDialog('🔊 Audio Read-Aloud', '<p>आपके ब्राउज़र में Text-to-Speech सपोर्ट उपलब्ध नहीं है।</p>');
+      return;
+    }
+
+    const wasSameBtn = (currentSpeakingBtn === btn && window.speechSynthesis.speaking);
+    window.speechSynthesis.cancel();
+
+    if (currentSpeakingBtn) {
+      currentSpeakingBtn.classList.remove('speaking');
+      currentSpeakingBtn.innerHTML = '🔊 सुनें';
+      currentSpeakingBtn = null;
+    }
+
+    if (wasSameBtn) return;
+
+    const text = cleanTextForSpeech(decodeURIComponent(encodedText));
+    const utterance = new SpeechSynthesisUtterance(text);
+
+    const hasHindi = /[\u0900-\u097F]/.test(text);
+    utterance.lang = hasHindi ? 'hi-IN' : 'en-IN';
+    utterance.rate = 0.96;
+    utterance.pitch = 1.02;
+
+    btn.classList.add('speaking');
+    btn.innerHTML = '⏹️ रोकें';
+    currentSpeakingBtn = btn;
+
+    utterance.onend = () => {
+      btn.classList.remove('speaking');
+      btn.innerHTML = '🔊 सुनें';
+      if (currentSpeakingBtn === btn) currentSpeakingBtn = null;
+    };
+
+    utterance.onerror = () => {
+      btn.classList.remove('speaking');
+      btn.innerHTML = '🔊 सुनें';
+      if (currentSpeakingBtn === btn) currentSpeakingBtn = null;
+    };
+
+    window.speechSynthesis.speak(utterance);
+  }
+
+  function copyAnswerText(btn, encodedText) {
+    const plain = cleanTextForSpeech(decodeURIComponent(encodedText));
+    navigator.clipboard.writeText(plain).then(() => {
+      const old = btn.innerHTML;
+      btn.innerHTML = '✅ Copied';
+      setTimeout(() => { btn.innerHTML = old; }, 1400);
+    });
+  }
+
+  function shareOnWhatsApp(encodedText) {
+    const plain = cleanTextForSpeech(decodeURIComponent(encodedText));
+    const msg = `*Sir Mahee DoubtBot AI ✨*\n\n${plain}\n\n_Study • Ask • Solve_`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(msg)}`, '_blank');
+  }
+
+  // ==================== 3. LIVE GEMINI AI SOLVER (TEXT + IMAGE) ====================
+  function formatMarkdownToHtml(mdText) {
+    let safe = mdText
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    safe = safe.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>');
+    safe = safe.replace(/\n/g, '<br>');
+    return `<div class="sol-box">${safe}</div>`;
+  }
+
+  async function callGeminiAPI(promptText, imageBase64 = null, mimeType = 'image/jpeg') {
+    const apiKey = (appState.apiKey || '').replace(/[\s\u200B-\u200D\uFEFF]/g, '');
+    if (!apiKey) throw new Error('API Key खाली है।');
+
+    const primaryModel = appState.model || 'gemini-2.5-flash';
+    const modelsToTry = primaryModel === 'gemini-2.5-flash'
+      ? ['gemini-2.5-flash', 'gemini-2.0-flash']
+      : [primaryModel, 'gemini-2.5-flash'];
+
+    const cls = appState.selectedClass;
+    const lng = appState.selectedLang;
+
+    const systemInstruction = `You are "Sir Mahee DoubtBot AI", a friendly and expert Indian school teacher for RBSE and NCERT students (${cls}).
+Explain concepts clearly in ${lng}.
+Rules:
+1. Always give a structured Step-by-Step solution (Step 1, Step 2, Step 3...).
+2. Highlight key formulas, definitions, or rules using **bold**.
+3. End with a short "Quick Tip:" for exams.
+4. Keep formatting clean and easy to read on a mobile screen.`;
+
+    const parts = [{ text: promptText }];
+    if (imageBase64) {
+      parts.push({
+        inline_data: {
+          mime_type: mimeType,
+          data: imageBase64
+        }
+      });
+    }
+
+    let lastError = null;
+    for (const mdl of modelsToTry) {
+      try {
+        const url = `https://generativelanguage.googleapis.com/v1beta/models/${mdl}:generateContent?key=${encodeURIComponent(apiKey)}`;
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: systemInstruction }] },
+            contents: [{ role: 'user', parts }],
+            generationConfig: {
+              temperature: 0.4,
+              maxOutputTokens: 1024
+            }
+          })
+        });
+
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) {
+          const msg = data?.error?.message || `HTTP ${res.status}`;
+          lastError = new Error(msg);
+          if (res.status === 404 || msg.toLowerCase().includes('not found')) continue;
+          throw lastError;
+        }
+
+        const reply = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (!reply) throw new Error('AI से कोई उत्तर प्राप्त नहीं हुआ।');
+        return reply;
+      } catch (err) {
+        lastError = err;
+        if (err.message === 'Failed to fetch') {
+          throw new Error('नेटवर्क या ब्राउज़र सुरक्षा ब्लॉक (यदि फाइल content:// में खुली है, तो इसे GitHub Pages / localhost पर चलाएं या इंटरनेट जांचें)।');
+        }
+      }
+    }
+    throw lastError || new Error('Gemini API कनेक्ट नहीं हो सका।');
+  }
+
+  function buildOfflineFallback(q, cls, lng) {
+    const t = q.toLowerCase();
+    if (t.includes('photosynthesis') || t.includes('प्रकाश संश्लेषण')) {
+      return `**🌿 प्रकाश संश्लेषण (Photosynthesis) — ${cls}**
+Step 1: हरे पौधे सूर्य के प्रकाश, क्लोरोफिल, जल (H₂O) और कार्बन डाइऑक्साइड (CO₂) की सहायता से अपना भोजन (ग्लूकोज) बनाते हैं।
+Step 2 (रासायनिक समीकरण): 6CO₂ + 6H₂O → C₆H₁₂O₆ + 6O₂
+Step 3: इस क्रिया में ऑक्सीजन (O₂) गैस बाहर निकलती है जो जीवों के श्वसन के लिए आवश्यक है।
+Quick Tip: परीक्षा में समीकरण और क्लोरोफिल की भूमिका जरूर लिखें।`;
+    }
+    if (t.includes('2x + 5') || t.includes('2x+5')) {
+      return `**📐 Step-by-Step Maths Solution (${cls})**
+Step 1: दिया गया समीकरण: 2x + 5 = 15
+Step 2: 5 को दाईं ओर ले जाने पर: 2x = 15 - 5 = 10
+Step 3: दोनों पक्षों में 2 से भाग देने पर: x = 10 / 2 = 5
+Quick Tip: उत्तर की जाँच के लिए x = 5 वापस समीकरण में रखें: 2(5) + 5 = 15।`;
+    }
+    if (t.includes('tense')) {
+      return `**🔤 Present Continuous Tense के नियम (${cls} • ${lng})**
+Step 1 (पहचान): हिंदी वाक्यों के अंत में 'रहा है, रही है, रहे हैं' आता है।
+Step 2 (Formula): Subject + is / am / are + Verb(1st form) + ing + Object
+Step 3 (Examples):
+• I am reading a book. (मैं किताब पढ़ रहा हूँ।)
+• She is writing notes. (वह नोट्स लिख रही है।)
+Quick Tip: I के साथ 'am', Singular के साथ 'is' और Plural के साथ 'are' लगाएं।`;
+    }
+    return `**✨ Step-by-Step Solution (${cls} • ${lng})**
+प्रश्न: "${q}"
+
+Step 1 (अवधारणा): यह प्रश्न ${cls} (RBSE / NCERT) के पाठ्यक्रम पर आधारित है।
+Step 2 (मुख्य बिंदु): किसी भी प्रश्न को हल करते समय पहले दिए गए मान (Given) और सूत्र (Formula) को क्रमबद्ध लिखें।
+Quick Tip: ऊपर 🔑 **Gemini Key** बटन दबाकर अपनी मुफ़्त Google Gemini API Key जोड़ें, ताकि AI आपके हर सवाल और फोटो का लाइव उत्तर दे सके!`;
+  }
+
+  function renderChatStream() {
+    const stream = document.getElementById('chatStream');
+    stream.innerHTML = `
+      <div class="bubble bot">
+        <strong>नमस्ते ${appState.studentName}! मैं Sir Mahee DoubtBot AI हूँ ✨</strong><br>
+        ${appState.selectedClass} (RBSE / NCERT) का कोई भी प्रश्न लिखें, फोटो अपलोड करें या बोलकर पूछें — आपको <b>Step-by-Step</b> समाधान और <b>🔊 Audio Read-Aloud</b> मिलेगा!
+      </div>
+    `;
+
+    appState.chatHistory.forEach(item => {
+      appendBubbleToDOM(item.role, item.text, item.html, false);
+    });
+    stream.scrollTop = stream.scrollHeight;
+  }
+
+  function appendBubbleToDOM(role, rawText, formattedHtml, shouldScroll = true) {
+    const stream = document.getElementById('chatStream');
+    const div = document.createElement('div');
+    div.className = `bubble ${role}`;
+
+    if (role === 'user') {
+      div.textContent = rawText;
+    } else {
+      const encoded = encodeURIComponent(rawText);
+      div.innerHTML = `
+        ${formattedHtml}
+        <div class="bot-actions-bar">
+          <button class="mini-act-btn" onclick="toggleReadAloud(this, '${encoded}')">🔊 सुनें</button>
+          <button class="mini-act-btn" onclick="copyAnswerText(this, '${encoded}')">📋 Copy</button>
+          <button class="mini-act-btn" onclick="shareOnWhatsApp('${encoded}')">📤 Share</button>
+        </div>
+      `;
+    }
+
+    stream.appendChild(div);
+    if (shouldScroll) stream.scrollTop = stream.scrollHeight;
+  }
+
+  async function solveDoubt(question, imageBase64 = null, mimeType = 'image/jpeg') {
+    const stream = document.getElementById('chatStream');
+
+    appState.chatHistory.push({ role: 'user', text: question, html: '' });
+    if (appState.chatHistory.length > 30) appState.chatHistory.shift();
+    appendBubbleToDOM('user', question, '', true);
+
+    const loadingDiv = document.createElement('div');
+    loadingDiv.className = 'bubble bot';
+    loadingDiv.innerHTML = imageBase64
+      ? '📷 <em>फोटो स्कैन करके Step-by-Step समाधान तैयार हो रहा है...</em>'
+      : '🤖 <em>Step-by-Step समाधान तैयार हो रहा है...</em>';
+    stream.appendChild(loadingDiv);
+    stream.scrollTop = stream.scrollHeight;
+
+    let answerMarkdown = '';
+    try {
+      if (appState.apiKey && appState.apiKey.trim().length > 10) {
+        answerMarkdown = await callGeminiAPI(question, imageBase64, mimeType);
+      } else {
+        await new Promise(r => setTimeout(r, 450));
+        answerMarkdown = buildOfflineFallback(question, appState.selectedClass, appState.selectedLang);
+      }
+    } catch (err) {
+      answerMarkdown = `⚠️ **Live Gemini AI त्रुटि:** ${err.message}\n\nकृपया ऊपर 🔑 **Gemini Key** में अपनी API Key जांचें। नीचे ऑफ़लाइन मार्गदर्शिका दी गई है:\n\n` +
+        buildOfflineFallback(question, appState.selectedClass, appState.selectedLang);
+    }
+
+    loadingDiv.remove();
+    const formattedHtml = formatMarkdownToHtml(answerMarkdown);
+
+    appState.chatHistory.push({ role: 'bot', text: answerMarkdown, html: formattedHtml });
+    if (appState.chatHistory.length > 30) appState.chatHistory.shift();
+    appendBubbleToDOM('bot', answerMarkdown, formattedHtml, true);
+
+    appState.totalSolved++;
+    appState.studyPct = Math.min(100, appState.studyPct + 2);
+    appState.savedDoubts.unshift({
+      q: question,
+      tag: appState.selectedClass,
+      time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+    });
+    if (appState.savedDoubts.length > 25) appState.savedDoubts.pop();
+    saveAppState();
+  }
+
+  function handleHomeSubmit() {
+    const inp = document.getElementById('homeDoubtField');
+    const val = inp.value.trim();
+    if (!val) { inp.focus(); return; }
+    inp.value = '';
+    switchView('chatbot');
+    solveDoubt(val);
+  }
+
+  function askSubject(subj) {
+    switchView('chatbot');
+    solveDoubt(`${subj} विषय (${appState.selectedClass}) का एक महत्वपूर्ण टॉपिक Step-by-Step समझाएं।`);
+  }
+
+  function askSample(q) { solveDoubt(q); }
+
+  function handleChatSend() {
+    const inp = document.getElementById('chatField');
+    const val = inp.value.trim();
+    if (!val) return;
+    inp.value = '';
+    solveDoubt(val);
+  }
+
+  function resetChat() {
+    if (window.speechSynthesis) window.speechSynthesis.cancel();
+    appState.chatHistory = [];
+    saveAppState();
+    renderChatStream();
+  }
+
+  function openPhotoPicker() { document.getElementById('photoFile').click(); }
+  function openPdfPicker() { document.getElementById('pdfFile').click(); }
+
+  function onPhotoSelected(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const dataUrl = reader.result;
+      const base64Data = dataUrl.split(',')[1];
+      switchView('chatbot');
+      solveDoubt(`📷 [Photo: ${file.name}] इस चित्र में दिए गए प्रश्न को पढ़कर Step-by-Step हल करें।`, base64Data, file.type || 'image/jpeg');
+    };
+    reader.readAsDataURL(file);
+    e.target.value = '';
+  }
+
+  function onDocSelected(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+    if (file.type.startsWith('text/') || file.name.endsWith('.txt') || file.name.endsWith('.md')) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        const snippet = reader.result.slice(0, 1500);
+        switchView('chatbot');
+        solveDoubt(`📄 [File: ${file.name}] इस सामग्री का सरल सार (Summary) और महत्वपूर्ण प्रश्न समझाएं:\n\n${snippet}`);
+      };
+      reader.readAsText(file);
+    } else {
+      switchView('chatbot');
+      solveDoubt(`📎 [PDF: ${file.name}] इस अध्याय के मुख्य बिंदु और परीक्षा उपयोगी प्रश्न समझाएं।`);
+    }
+    e.target.value = '';
+  }
+
+  function startVoiceInput() {
+    const btn = document.getElementById('voiceBtn');
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SR) {
+      showDialog('🎤 बोलकर पूछें', '<p>आपके ब्राउज़र में लाइव माइक उपलब्ध नहीं है। आप ऊपर सर्च बॉक्स में अपना प्रश्न टाइप करके पूछ सकते हैं।</p>');
+      return;
+    }
+    const rec = new SR();
+    rec.lang = 'hi-IN';
+    btn.classList.add('recording');
+    btn.querySelector('span').textContent = 'सुन रहा हूँ...';
+    rec.start();
+
+    rec.onresult = (ev) => {
+      const text = ev.results[0][0].transcript;
+      btn.classList.remove('recording');
+      btn.querySelector('span').textContent = 'बोलकर पूछें';
+      switchView('chatbot');
+      solveDoubt(text);
+    };
+    rec.onerror = () => {
+      btn.classList.remove('recording');
+      btn.querySelector('span').textContent = 'बोलकर पूछें';
+    };
+  }
+
+  // ==================== 4. TOUCH-DRAGGABLE FLUID NAV & SWIPE ENGINE ====================
+  const navEl = document.getElementById('draggableNav');
+  const pillEl = document.getElementById('fluidNavPill');
+  const glowEl = document.getElementById('navTouchGlow');
+  const tabBtns = Array.from(document.querySelectorAll('.dock-tab'));
+  const tabNames = ['home', 'chatbot', 'study', 'tests', 'profile'];
+
+  let currentX = 12;
+  let targetX = 12;
+  let velocityX = 0;
+  let pillWidth = 68;
+  let isDragging = false;
+  let dragStartX = 0;
+  let pillStartX = 0;
+  let activeIndex = 0;
+
+  function triggerHaptic(ms = 12) {
+    if (navigator.vibrate) {
+      try { navigator.vibrate(ms); } catch (e) {}
+    }
+  }
+
+  function getTabMetrics(index) {
+    const navRect = navEl.getBoundingClientRect();
+    const btnRect = tabBtns[index].getBoundingClientRect();
+    if (navRect.width === 0 || btnRect.width === 0) {
+      const fallbackTotal = Math.min(window.innerWidth, 430) - 24;
+      const cellW = (fallbackTotal - 24) / 5;
+      return { left: 12 + index * (cellW + 6), width: cellW };
+    }
+    return {
+      left: btnRect.left - navRect.left,
+      width: btnRect.width
+    };
+  }
+
+  function syncNavToIndex(index, immediate = false) {
+    activeIndex = index;
+    const m = getTabMetrics(index);
+    pillWidth = m.width;
+    targetX = m.left;
+    pillEl.style.width = pillWidth + 'px';
+
+    if (immediate) {
+      currentX = targetX;
+      velocityX = 0;
+      pillEl.style.transform = `translate3d(${currentX}px, -4px, 0) scale(1, 1)`;
+    }
+
+    tabBtns.forEach((btn, i) => {
+      btn.classList.toggle('active', i === index);
+    });
+  }
+
+  function animateFluidNav() {
+    const stiffness = isDragging ? 0.36 : 0.20;
+    const damping = isDragging ? 0.68 : 0.74;
+
+    const force = (targetX - currentX) * stiffness;
+    velocityX = (velocityX + force) * damping;
+    currentX += velocityX;
+
+    const speed = Math.min(Math.abs(velocityX), 26);
+    const stretchX = 1 + (speed * 0.015) + (isDragging ? 0.06 : 0);
+    const squishY = 1 - (speed * 0.008) + (isDragging ? 0.03 : 0);
+    const liftY = isDragging ? -6 : -4;
+    const dynamicRadius = Math.max(15, 18 + speed * 0.35);
+
+    pillEl.style.borderRadius = `${dynamicRadius}px`;
+    pillEl.style.transform = `translate3d(${currentX}px, ${liftY}px, 0) scale(${stretchX.toFixed(4)}, ${squishY.toFixed(4)})`;
+
+    requestAnimationFrame(animateFluidNav);
+  }
+
+  function updateGlowPosition(clientX, clientY) {
+    const rect = navEl.getBoundingClientRect();
+    glowEl.style.left = (clientX - rect.left) + 'px';
+    glowEl.style.top = (clientY - rect.top) + 'px';
+  }
+
+  function getNearestTabIndex(centerX) {
+    let bestIdx = 0;
+    let minDist = Infinity;
+    tabBtns.forEach((btn, idx) => {
+      const m = getTabMetrics(idx);
+      const btnCenter = m.left + m.width / 2;
+      const dist = Math.abs(centerX - btnCenter);
+      if (dist < minDist) {
+        minDist = dist;
+        bestIdx = idx;
+      }
+    });
+    return bestIdx;
+  }
+
+  navEl.addEventListener('pointerdown', (e) => {
+    isDragging = true;
+    try { navEl.setPointerCapture(e.pointerId); } catch (err) {}
+    const navRect = navEl.getBoundingClientRect();
+    const pointerX = e.clientX - navRect.left;
+
+    const touchedIdx = getNearestTabIndex(pointerX);
+    if (touchedIdx !== activeIndex) {
+      triggerHaptic(10);
+      switchView(tabNames[touchedIdx]);
+    }
+
+    dragStartX = e.clientX;
+    pillStartX = currentX;
+
+    updateGlowPosition(e.clientX, e.clientY);
+    glowEl.classList.add('visible');
+  });
+
+  navEl.addEventListener('pointermove', (e) => {
+    if (!isDragging) return;
+    updateGlowPosition(e.clientX, e.clientY);
+
+    const navRect = navEl.getBoundingClientRect();
+    const minX = 12;
+    const maxX = navRect.width - pillWidth - 12;
+
+    const deltaX = e.clientX - dragStartX;
+    let nextX = pillStartX + deltaX;
+
+    if (nextX < minX) {
+      nextX = minX - Math.sqrt(minX - nextX) * 2.2;
+    } else if (nextX > maxX) {
+      nextX = maxX + Math.sqrt(nextX - maxX) * 2.2;
+    }
+
+    targetX = nextX;
+
+    const pillCenter = targetX + pillWidth / 2;
+    const hoverIdx = getNearestTabIndex(pillCenter);
+    if (hoverIdx !== activeIndex) {
+      activeIndex = hoverIdx;
+      triggerHaptic(8);
+      tabBtns.forEach((btn, i) => btn.classList.toggle('active', i === hoverIdx));
+    }
+  });
+
+  function endNavDrag() {
+    if (!isDragging) return;
+    isDragging = false;
+    glowEl.classList.remove('visible');
+
+    const pillCenter = currentX + pillWidth / 2;
+    const finalIdx = getNearestTabIndex(pillCenter);
+    switchView(tabNames[finalIdx]);
+  }
+
+  navEl.addEventListener('pointerup', endNavDrag);
+  navEl.addEventListener('pointercancel', endNavDrag);
+
+  // Also allow direct click on each tab button
+  tabBtns.forEach((btn, idx) => {
+    btn.addEventListener('click', () => switchView(tabNames[idx]));
+  });
+
+  // Left/Right Screen Swipe Gesture to Switch Tabs
+  const shellEl = document.getElementById('phoneShell');
+  let touchStartX = 0;
+  let touchStartY = 0;
+  shellEl.addEventListener('touchstart', (e) => {
+    if (e.target.closest('#draggableNav') || e.target.closest('.quick-prompts-strip')) return;
+    touchStartX = e.changedTouches[0].clientX;
+    touchStartY = e.changedTouches[0].clientY;
+  }, { passive: true });
+
+  shellEl.addEventListener('touchend', (e) => {
+    if (!touchStartX) return;
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    touchStartX = 0;
+    if (Math.abs(dx) > 68 && Math.abs(dx) > Math.abs(dy) * 1.6) {
+      if (dx < 0 && activeIndex < tabNames.length - 1) {
+        triggerHaptic(10);
+        switchView(tabNames[activeIndex + 1]);
+      } else if (dx > 0 && activeIndex > 0) {
+        triggerHaptic(10);
+        switchView(tabNames[activeIndex - 1]);
+      }
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', () => syncNavToIndex(activeIndex, true));
+
+  function switchView(name) {
+    document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+    document.getElementById('view-' + name).classList.add('active');
+
+    const idx = tabNames.indexOf(name);
+    if (idx !== -1) syncNavToIndex(idx, false);
+    shellEl.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // ==================== 5. QUIZ / PYQS ====================
+  const pyqList = [
+    {
+      tag: "Science • Class 10 (RBSE/NCERT)",
+      q: "प्रकाश संश्लेषण (Photosynthesis) में पौधे कौन सी गैस ग्रहण करते हैं?",
+      opts: ["ऑक्सीजन (O₂)", "कार्बन डाइऑक्साइड (CO₂)", "नाइट्रोजन (N₂)", "हीलियम (He)"],
+      ans: 1,
+      exp: "पौधे सूर्य के प्रकाश व क्लोरोफिल की उपस्थिति में CO₂ और जल से भोजन बनाते हैं।"
+    },
+    {
+      tag: "Maths • Class 8–10",
+      q: "यदि 2x + 5 = 15 है, तो x का मान क्या होगा?",
+      opts: ["10", "5", "7.5", "4"],
+      ans: 1,
+      exp: "Step 1: 2x = 15 - 5 = 10 → Step 2: x = 10 / 2 = 5."
+    },
+    {
+      tag: "English Grammar • Class 6–10",
+      q: "Choose the correct verb: He _____ cricket every Sunday.",
+      opts: ["play", "plays", "playing", "played"],
+      ans: 1,
+      exp: "Present Indefinite Tense में Singular Subject (He) के साथ Verb में 's' लगता है।"
+    }
+  ];
+
+  let curQ = 0, locked = false;
+
+  function loadQuiz() {
+    const item = pyqList[curQ % pyqList.length];
+    locked = false;
+    document.getElementById('qSubjectTag').textContent = item.tag;
+    document.getElementById('qTitle').textContent = `Q${curQ + 1}. ${item.q}`;
+    document.getElementById('qResultMsg').textContent = '';
+    const box = document.getElementById('qOptions');
+    box.innerHTML = '';
+    item.opts.forEach((o, i) => {
+      const b = document.createElement('button');
+      b.className = 'quiz-option-btn';
+      b.textContent = `${String.fromCharCode(65 + i)}. ${o}`;
+      b.onclick = () => selectOpt(i, b);
+      box.appendChild(b);
+    });
+  }
+
+  function selectOpt(i, el) {
+    if (locked) return;
+    locked = true;
+    appState.quizAttempted++;
+    const item = pyqList[curQ % pyqList.length];
+    const btns = document.querySelectorAll('.quiz-option-btn');
+    if (i === item.ans) {
+      el.classList.add('correct');
+      appState.quizScore++;
+      triggerHaptic(15);
+      document.getElementById('qResultMsg').style.color = '#15803d';
+      document.getElementById('qResultMsg').textContent = '✅ सही उत्तर! ' + item.exp;
+    } else {
+      el.classList.add('wrong');
+      btns[item.ans].classList.add('correct');
+      document.getElementById('qResultMsg').style.color = '#b91c1c';
+      document.getElementById('qResultMsg').textContent = '❌ गलत उत्तर। ' + item.exp;
+    }
+    saveAppState();
+  }
+
+  function nextQuestion() { curQ++; loadQuiz(); }
+
+  // ==================== 6. MODALS (API SETTINGS, PROFILE, HISTORY) ====================
+  function showDialog(title, html) {
+    document.getElementById('dialogHeading').textContent = title;
+    document.getElementById('dialogContent').innerHTML = html;
+    document.getElementById('modalBox').classList.add('open');
+  }
+
+  function closeDialog() { document.getElementById('modalBox').classList.remove('open'); }
+
+  function openApiSettings() {
+    const isContentUri = window.location.protocol === 'content:' || window.location.protocol === 'file:';
+    const warnBanner = isContentUri
+      ? `<div style="background:#fef3c7;border:1px solid #f59e0b;color:#92400e;padding:8px 10px;border-radius:10px;font-size:11px;margin-bottom:10px;">
+          ⚠️ <b>ध्यान दें:</b> आपने यह फाइल सीधे मोबाइल स्टोरेज (<code>${window.location.protocol}</code>) से खोली है। Android Chrome में <code>content://</code> लिंक बंद करने पर ब्राउज़र डेटा साफ़ कर देता है। स्थायी Save के लिए इसे <b>GitHub Pages</b> या लोकल सर्वर पर होस्ट करें।
+         </div>`
+      : '';
+
+    showDialog('🔑 Live Gemini AI Setup', `
+      ${warnBanner}
+      <p style="color:#525d78;font-size:12px;margin-bottom:8px;">
+        अपनी Google AI Studio (Gemini) API Key नीचे पेस्ट करें:
+      </p>
+      <label style="font-weight:700;font-size:12px;">Gemini API Key:</label>
+      <input type="text" id="apiKeyInput" class="form-input" placeholder="AIzaSy..." value="${appState.apiKey || ''}" autocomplete="off" spellcheck="false" />
+
+      <label style="font-weight:700;font-size:12px;">AI Model:</label>
+      <select id="apiModelSelect" class="form-input">
+        <option value="gemini-2.5-flash" ${appState.model === 'gemini-2.5-flash' ? 'selected' : ''}>Gemini 2.5 Flash (Fast & Vision)</option>
+        <option value="gemini-2.5-pro" ${appState.model === 'gemini-2.5-pro' ? 'selected' : ''}>Gemini 2.5 Pro (Deep Reasoning)</option>
+      </select>
+
+      <div id="apiSaveStatus" style="font-size:12px;font-weight:700;margin:6px 0;"></div>
+      <button class="navy-cta" id="saveApiBtn" onclick="saveApiConfig()">💾 Test & Save API Key</button>
+    `);
+  }
+
+  async function saveApiConfig() {
+    const rawKey = document.getElementById('apiKeyInput').value;
+    const cleanedKey = rawKey.replace(/[\s\u200B-\u200D\uFEFF]/g, '');
+    const selectedModel = document.getElementById('apiModelSelect').value;
+    const statusEl = document.getElementById('apiSaveStatus');
+    const btn = document.getElementById('saveApiBtn');
+
+    if (cleanedKey.length < 15) {
+      statusEl.style.color = '#b91c1c';
+      statusEl.textContent = '❌ कृपया सही Gemini API Key (AIzaSy...) दर्ज करें।';
+      return;
+    }
+
+    appState.apiKey = cleanedKey;
+    appState.model = selectedModel;
+    saveAppState();
+
+    btn.disabled = true;
+    btn.textContent = '⏳ API Key जांच रहे हैं...';
+    statusEl.style.color = '#1d4ed8';
+    statusEl.textContent = '🔄 Google Gemini सर्वर से कनेक्शन चेक हो रहा है...';
+
+    try {
+      const testUrl = `https://generativelanguage.googleapis.com/v1beta/models/${selectedModel}:generateContent?key=${encodeURIComponent(cleanedKey)}`;
+      const res = await fetch(testUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          contents: [{ role: 'user', parts: [{ text: 'Reply only with: OK' }] }],
+          generationConfig: { maxOutputTokens: 10 }
+        })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data?.error?.message || `Error ${res.status}`);
+      }
+      statusEl.style.color = '#15803d';
+      statusEl.textContent = '✅ API Key सेव हो गई और Live AI सक्रिय है!';
+      setTimeout(() => closeDialog(), 900);
+    } catch (err) {
+      statusEl.style.color = '#b91c1c';
+      statusEl.innerHTML = `⚠️ Key सेव तो हो गई, पर API त्रुटि आई: <b>${err.message}</b>`;
+      btn.disabled = false;
+      btn.textContent = '💾 पुनः प्रयास करें (Retry)';
+    }
+  }
+
+  function openProfileEditor() {
+    showDialog('✏️ Edit Student Profile', `
+      <label style="font-weight:700;font-size:12px;">Student Name:</label>
+      <input type="text" id="editNameInp" class="form-input" value="${appState.studentName}" />
+
+      <label style="font-weight:700;font-size:12px;">Class (RBSE / NCERT):</label>
+      <select id="editClsInp" class="form-input">
+        <option value="Class 5" ${appState.selectedClass==='Class 5'?'selected':''}>Class 5</option>
+        <option value="Class 6" ${appState.selectedClass==='Class 6'?'selected':''}>Class 6</option>
+        <option value="Class 7" ${appState.selectedClass==='Class 7'?'selected':''}>Class 7</option>
+        <option value="Class 8" ${appState.selectedClass==='Class 8'?'selected':''}>Class 8</option>
+        <option value="Class 9" ${appState.selectedClass==='Class 9'?'selected':''}>Class 9</option>
+        <option value="Class 10" ${appState.selectedClass==='Class 10'?'selected':''}>Class 10</option>
+      </select>
+
+      <button class="navy-cta" onclick="saveProfileDetails()">💾 Save Profile</button>
+    `);
+  }
+
+  function saveProfileDetails() {
+    const nm = document.getElementById('editNameInp').value.trim();
+    if (nm) appState.studentName = nm;
+    appState.selectedClass = document.getElementById('editClsInp').value;
+    saveAppState();
+    closeDialog();
+  }
+
+  function openHistoryDialog() {
+    const rows = appState.savedDoubts.map(d => `
+      <div style="padding:10px;background:#fff;border-radius:12px;margin-bottom:8px;border:1px solid #eadbc0;">
+        <div style="font-size:10.5px;font-weight:700;color:#b45309;">${d.tag} • ${d.time}</div>
+        <div style="font-weight:700;margin-top:2px;">${d.q}</div>
+      </div>`).join('');
+    showDialog('🕒 My Saved Doubts (Auto-Saved)', rows || '<p>अभी कोई प्रश्न सेव नहीं है।</p>');
+  }
+
+  function openStepDemo() {
+    const sample = "उदाहरण: एक आयत की लंबाई 12 cm और चौड़ाई 8 cm है। परिमाप ज्ञात करें। Step 1: l = 12 cm, b = 8 cm. Step 2: परिमाप = 2 × (l + b). Step 3: 2 × (12 + 8) = 40 cm.";
+    const enc = encodeURIComponent(sample);
+    showDialog('📖 Step-by-Step Solution', `
+      <p style="margin-bottom:8px;"><strong>उदाहरण:</strong> एक आयत की लंबाई 12 cm और चौड़ाई 8 cm है। परिमाप ज्ञात करें।</p>
+      <div class="sol-box">
+        <b>Step 1:</b> l = 12 cm, b = 8 cm<br>
+        <b>Step 2:</b> परिमाप = 2 × (l + b)<br>
+        <b>Step 3:</b> 2 × (12 + 8) = <b>40 cm</b>
+      </div>
+      <div class="bot-actions-bar">
+        <button class="mini-act-btn" onclick="toggleReadAloud(this, '${enc}')">🔊 सुनें</button>
+        <button class="mini-act-btn" onclick="copyAnswerText(this, '${enc}')">📋 Copy</button>
+      </div>
+      <button class="navy-cta" onclick="closeDialog(); switchView('chatbot');">अपना Doubt हल करें →</button>
+    `);
+  }
+
+  function previewNote(title, txt) {
+    const enc = encodeURIComponent(`${title}. ${txt}`);
+    showDialog('📄 ' + title, `
+      <pre style="white-space:pre-wrap;font-family:inherit;background:#fff;padding:12px;border-radius:12px;border:1px solid #eadbc0;">${txt}</pre>
+      <div class="bot-actions-bar">
+        <button class="mini-act-btn" onclick="toggleReadAloud(this, '${enc}')">🔊 सुनें</button>
+        <button class="mini-act-btn" onclick="shareOnWhatsApp('${enc}')">📤 WhatsApp</button>
+      </div>
+    `);
+  }
+
+  function openMenuDrawer() {
+    showDialog('✨ Sir Mahee DoubtBot AI', `
+      <p style="color:#525d78;margin-bottom:8px;"><strong>Study • Ask • Solve</strong> (${appState.selectedClass} RBSE/NCERT)</p>
+      <button class="navy-cta" onclick="closeDialog(); openApiSettings();">🔑 Live Gemini AI Key</button>
+      <button class="navy-cta" onclick="closeDialog(); openProfileEditor();">🎓 Edit Student Profile</button>
+      <button class="navy-cta" onclick="closeDialog(); switchView('chatbot');">🤖 AI Chatbot</button>
+      <button class="navy-cta" onclick="closeDialog(); switchView('tests');">🎯 Exam Special</button>
+    `);
+  }
+
+  // ==================== INITIALIZE APP ====================
+  checkDailyStreak();
+  syncAllUI();
+  renderChatStream();
+  loadQuiz();
+
+  window.addEventListener('load', () => syncNavToIndex(0, true));
+  requestAnimationFrame(() => {
+    syncNavToIndex(0, true);
+    requestAnimationFrame(animateFluidNav);
+  });
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js').catch(() => {});
+    });
+  }
+</script>
+</body>
+  </html>
