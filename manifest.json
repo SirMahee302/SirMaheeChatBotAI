@@ -1,0 +1,18 @@
+{
+  "name": "Sir Mahee DoubtBot AI",
+  "short_name": "DoubtBot AI",
+  "description": "Study • Ask • Solve - RBSE & NCERT AI Doubt Solver",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0d1b3e",
+  "theme_color": "#0d1b3e",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/4712/4712035.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
