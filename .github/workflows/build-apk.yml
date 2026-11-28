@@ -76,7 +76,7 @@ jobs:
               private static final Map<String, List<String[]>> chatMemory = new HashMap<>();
 
               private static final Pattern GREETING_PATTERN = Pattern.compile(
-                      "^(hi+|hello+|hey+|hlo+|namaste|namaskar|ram\s*ram|radhe\s*radhe|jai\s*shree\s*krishna|good\s*(morning|afternoon|evening|night)|प्रणाम|नमस्ते|नमस्कार)[!.,🙏❤️✨\s]*$",
+                      "^(hi+|hello+|hey+|hlo+|namaste|namaskar|ram\\s*ram|radhe\\s*radhe|jai\\s*shree\\s*krishna|good\\s*(morning|afternoon|evening|night)|प्रणाम|नमस्ते|नमस्कार)[!.,🙏❤️✨\\s]*$",
                       Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
               );
 
@@ -197,8 +197,8 @@ jobs:
 
               private String sanitizeWhatsAppFormatting(String text) {
                   // Enforce WhatsApp single-asterisk bold & single-underscore italic rules
-                  String cleaned = text.replaceAll("\*\*([^*\n]+)\*\*", "*$1*");
-                  cleaned = cleaned.replaceAll("__([^_\n]+)__", "_$1_");
+                  String cleaned = text.replaceAll("\\*\\*([^*\\n]+)\\*\\*", "*$1*");
+                  cleaned = cleaned.replaceAll("__([^_\\n]+)__", "_$1_");
                   return cleaned.trim();
               }
 
