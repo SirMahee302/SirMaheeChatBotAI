@@ -36,9 +36,341 @@ jobs:
           npx cap init "Sir Mahee DoubtBot" "com.sirmahee.doubtbot" --web-dir www
           npx cap add android
 
-      - name: Allow Internet Permission in AndroidManifest
+      - name: Add WhatsApp Notification Listener & Native Bridge
         run: |
-          sed -i 's/<application/<uses-permission android:name="android.permission.INTERNET" \/>\n    <uses-permission android:name="android.permission.RECORD_AUDIO" \/>\n    <application/' android/app/src/main/AndroidManifest.xml
+          PKG_DIR="android/app/src/main/java/com/sirmahee/doubtbot"
+          mkdir -p "$PKG_DIR"
+
+          cat << 'EOF' > "$PKG_DIR/WhatsAppAutoReplyService.java"
+          package com.sirmahee.doubtbot;
+
+          import android.app.Notification;
+          import android.app.PendingIntent;
+          import android.app.RemoteInput;
+          import android.content.Intent;
+          import android.content.SharedPreferences;
+          import android.os.Bundle;
+          import android.service.notification.NotificationListenerService;
+          import android.service.notification.StatusBarNotification;
+          import org.json.JSONArray;
+          import org.json.JSONObject;
+          import java.io.BufferedReader;
+          import java.io.InputStreamReader;
+          import java.io.OutputStream;
+          import java.net.HttpURLConnection;
+          import java.net.URL;
+          import java.nio.charset.StandardCharsets;
+          import java.text.SimpleDateFormat;
+          import java.util.ArrayList;
+          import java.util.Date;
+          import java.util.HashMap;
+          import java.util.HashSet;
+          import java.util.List;
+          import java.util.Locale;
+          import java.util.Map;
+          import java.util.Set;
+          import java.util.regex.Pattern;
+
+          public class WhatsAppAutoReplyService extends NotificationListenerService {
+              private static final Set<String> processedKeys = new HashSet<>();
+              private static final Map<String, List<String[]>> chatMemory = new HashMap<>();
+
+              private static final Pattern GREETING_PATTERN = Pattern.compile(
+                      "^(hi+|hello+|hey+|hlo+|namaste|namaskar|ram\s*ram|radhe\s*radhe|jai\s*shree\s*krishna|good\s*(morning|afternoon|evening|night)|प्रणाम|नमस्ते|नमस्कार)[!.,🙏❤️✨\s]*$",
+                      Pattern.CASE_INSENSITIVE | Pattern.UNICODE_CASE
+              );
+
+              private static final String EXACT_FIRST_GREETING =
+                      "नमस्ते! 🙏\n\n" +
+                      "आपका स्वागत है मैं यहां Sir Mahee का AI Assistant हूं।\n\n" +
+                      "मैं आपकी पढ़ाई, अंग्रेजी ग्रामर, सामान्य ज्ञान और नोट्स से जुड़े सवालों में मदद कर सकता हूँ।\n\n" +
+                      "अपना सवाल यहाँ लिखें।👇 📚";
+
+              private static final String DEFAULT_RULES =
+                      "1. Identity & Role: तुम SirAssist हो, जो Sir Mahee के पर्सनल और स्टूडेंट हेल्प WhatsApp AI Assistant हो। Sir Mahee एक English Teacher, Educational Content Creator और SirMahee Learning World के Creator हैं।\n" +
+                      "2. First Greeting Rule: यदि कोई यूज़र पहली बार केवल अभिवादन करे (Hi, Hello, Hey, Namaste, Hii आदि) और कोई अन्य प्रश्न न हो, तो बिना बदलाव के निर्धारित Greeting भेजो। यदि Greeting के साथ सवाल हो, तो सीधे सवाल का उत्तर दो।\n" +
+                      "3. Student Academic Support: English Grammar, Literature, Vocabulary, Translation, GK, Rajasthan GK, School Subjects, Exam Preparation, Revision, Writing Skills के प्रश्नों का सरल Hindi + English (Hinglish) में छोटे और स्पष्ट Points में उदाहरण सहित उत्तर दो। गलत या अपुष्ट जानकारी मत दो।\n" +
+                      "4. Notes, PDF & Video Lectures: यदि कोई Notes, PDF, Study Material या Video Lecture माँगे, तो Sir Mahee के Educational Platforms बताओ: 📚 Telegram: Sir_mahee | ▶️ YouTube: Sir_mahee | 📸 Instagram: @Sir_mahee (कोई लिंक गढ़कर मत भेजो)।\n" +
+                      "5. Personal & School Urgent Messages: यदि कोई Sir Mahee के निजी काम, व्यक्तिगत संदेश, तत्काल संपर्क या विद्यालय के कार्य पर मैसेज करे जिसका जवाब Sir को स्वयं देना आवश्यक हो, तो ठीक यही जवाब भेजो: \"सर अभी क्लास में व्यस्त हैं, आपका मैसेज नोट कर लिया गया है। वे जल्द ही आपसे संपर्क करेंगे।\" इसके बाद कोई वादा या समय मत दो।\n" +
+                      "6. WhatsApp Formatting Rules: Bold के लिए केवल Single Asterisk (*शब्द*) और Italic के लिए केवल Single Underscore (_शब्द_) का प्रयोग करो। Double Asterisk (**) या Double Underscore (__) कभी मत लगाओ।\n" +
+                      "7. Friendly & Humorous Teaching Style: दोस्ताना, सहज और हल्के मजाकिया अंदाज़ में समझाओ। उत्तर अनावश्यक लंबा मत रखो।\n" +
+                      "8. Group Message Ignore Rule: WhatsApp Group Messages को पूरी तरह Ignore करो।\n" +
+                      "9. Ending & Feedback: सामान्य शैक्षणिक उत्तरों के अंत में विषय से जुड़ा एक छोटा Feedback या सवाल पूछो (जैसे: समझ आया या एक और Example दूँ? 😊)। Greeting और Personal/School Urgent जवाब में यह मत जोड़ो।\n" +
+                      "10. Priority Order: Group Ignore > First Greeting > Personal/School Urgent > Academic Support > Notes/Video > Formatting > Friendly Ending.";
+
+              @Override
+              public void onNotificationPosted(StatusBarNotification sbn) {
+                  if (sbn == null) return;
+                  String pkg = sbn.getPackageName();
+                  if (!"com.whatsapp".equals(pkg) && !"com.whatsapp.w4b".equals(pkg)) return;
+
+                  Notification notification = sbn.getNotification();
+                  if (notification == null) return;
+                  if ((notification.flags & Notification.FLAG_GROUP_SUMMARY) != 0) return;
+
+                  SharedPreferences prefs = getSharedPreferences("SirMaheeWABot", MODE_PRIVATE);
+                  boolean enabled = prefs.getBoolean("enabled", false);
+                  String apiKey = prefs.getString("apiKey", "").trim();
+                  if (!enabled || apiKey.length() < 15) return;
+
+                  Bundle extras = notification.extras;
+                  if (extras == null) return;
+
+                  // Priority 1: Strict WhatsApp Group Ignore Rule
+                  boolean ignoreGroups = prefs.getBoolean("ignoreGroups", true);
+                  boolean isGroupConv = extras.getBoolean("android.isGroupConversation", false);
+                  CharSequence convTitle = extras.getCharSequence(Notification.EXTRA_CONVERSATION_TITLE);
+                  CharSequence titleCs = extras.getCharSequence(Notification.EXTRA_TITLE);
+                  CharSequence textCs = extras.getCharSequence(Notification.EXTRA_TEXT);
+                  if (titleCs == null || textCs == null) return;
+
+                  String sender = titleCs.toString().trim();
+                  String message = textCs.toString().trim();
+                  if (sender.isEmpty() || message.isEmpty()) return;
+
+                  if (ignoreGroups) {
+                      if (isGroupConv || (convTitle != null && convTitle.length() > 0) || sender.contains(":") || sender.contains("@g.us")) {
+                          return;
+                      }
+                  }
+
+                  String lowerMsg = message.toLowerCase();
+                  if (lowerMsg.contains("new messages") || lowerMsg.contains("checking for new messages") || lowerMsg.contains("missed voice call") || lowerMsg.contains("missed video call")) {
+                      return;
+                  }
+
+                  String triggerPrefix = prefs.getString("triggerPrefix", "").trim();
+                  if (!triggerPrefix.isEmpty()) {
+                      if (!lowerMsg.startsWith(triggerPrefix.toLowerCase())) return;
+                      message = message.substring(triggerPrefix.length()).trim();
+                      if (message.isEmpty()) return;
+                  }
+
+                  String dedupKey = sbn.getKey() + "_" + sender + "_" + message.hashCode();
+                  synchronized (processedKeys) {
+                      if (processedKeys.contains(dedupKey)) return;
+                      if (processedKeys.size() > 150) processedKeys.clear();
+                      processedKeys.add(dedupKey);
+                  }
+
+                  Notification.Action replyAction = findReplyAction(notification);
+                  if (replyAction == null) return;
+
+                  final String finalQuestion = message;
+                  final String finalSender = sender;
+                  final String model = prefs.getString("model", "gemini-2.5-flash");
+                  final String classLevel = prefs.getString("classLevel", "Class 10");
+                  final String langPref = prefs.getString("langPref", "Hindi + English");
+                  final String customRules = prefs.getString("customRules", DEFAULT_RULES);
+
+                  new Thread(() -> {
+                      try {
+                          List<String[]> historyCopy;
+                          synchronized (chatMemory) {
+                              List<String[]> existing = chatMemory.get(finalSender);
+                              historyCopy = existing != null ? new ArrayList<>(existing) : new ArrayList<>();
+                          }
+
+                          String aiAnswer;
+                          if (historyCopy.isEmpty() && GREETING_PATTERN.matcher(finalQuestion).matches()) {
+                              aiAnswer = EXACT_FIRST_GREETING;
+                          } else {
+                              aiAnswer = askGemini(apiKey, model, classLevel, langPref, customRules, historyCopy, finalQuestion);
+                          }
+
+                          if (aiAnswer != null && !aiAnswer.isEmpty()) {
+                              aiAnswer = sanitizeWhatsAppFormatting(aiAnswer);
+                              sendInlineReply(replyAction, aiAnswer);
+                              synchronized (chatMemory) {
+                                  List<String[]> list = chatMemory.getOrDefault(finalSender, new ArrayList<>());
+                                  list.add(new String[]{finalQuestion, aiAnswer});
+                                  while (list.size() > 3) list.remove(0);
+                                  chatMemory.put(finalSender, list);
+                              }
+                              saveLog(prefs, finalSender, finalQuestion, aiAnswer);
+                          }
+                      } catch (Exception e) {
+                          e.printStackTrace();
+                      }
+                  }).start();
+              }
+
+              private String sanitizeWhatsAppFormatting(String text) {
+                  // Enforce WhatsApp single-asterisk bold & single-underscore italic rules
+                  String cleaned = text.replaceAll("\*\*([^*\n]+)\*\*", "*$1*");
+                  cleaned = cleaned.replaceAll("__([^_\n]+)__", "_$1_");
+                  return cleaned.trim();
+              }
+
+              private Notification.Action findReplyAction(Notification notification) {
+                  if (notification.actions == null) return null;
+                  for (Notification.Action action : notification.actions) {
+                      if (action != null && action.getRemoteInputs() != null && action.getRemoteInputs().length > 0) {
+                          return action;
+                      }
+                  }
+                  return null;
+              }
+
+              private void sendInlineReply(Notification.Action action, String replyText) throws PendingIntent.CanceledException {
+                  RemoteInput[] remoteInputs = action.getRemoteInputs();
+                  Intent intent = new Intent();
+                  Bundle bundle = new Bundle();
+                  for (RemoteInput remoteInput : remoteInputs) {
+                      bundle.putCharSequence(remoteInput.getResultKey(), replyText);
+                  }
+                  RemoteInput.addResultsToIntent(remoteInputs, intent, bundle);
+                  action.actionIntent.send(this, 0, intent);
+              }
+
+              private String askGemini(String apiKey, String model, String classLevel, String langPref, String customRules, List<String[]> history, String question) throws Exception {
+                  String endpoint = "https://generativelanguage.googleapis.com/v1beta/models/" + model + ":generateContent?key=" + apiKey;
+                  URL url = new URL(endpoint);
+                  HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                  conn.setRequestMethod("POST");
+                  conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                  conn.setConnectTimeout(15000);
+                  conn.setReadTimeout(25000);
+                  conn.setDoOutput(true);
+
+                  String sysPrompt = (customRules != null && !customRules.trim().isEmpty() ? customRules : DEFAULT_RULES) +
+                          "\n\nDefault Academic Level Context: " + classLevel + " (RBSE/NCERT), Preferred Language: " + langPref + ".";
+
+                  JSONObject sysPart = new JSONObject().put("text", sysPrompt);
+                  JSONObject sysInst = new JSONObject().put("parts", new JSONArray().put(sysPart));
+
+                  JSONArray contents = new JSONArray();
+                  for (String[] turn : history) {
+                      contents.put(new JSONObject().put("role", "user").put("parts", new JSONArray().put(new JSONObject().put("text", turn[0]))));
+                      contents.put(new JSONObject().put("role", "model").put("parts", new JSONArray().put(new JSONObject().put("text", turn[1]))));
+                  }
+                  contents.put(new JSONObject().put("role", "user").put("parts", new JSONArray().put(new JSONObject().put("text", question))));
+
+                  JSONObject genConfig = new JSONObject().put("temperature", 0.4).put("maxOutputTokens", 750);
+
+                  JSONObject payload = new JSONObject()
+                          .put("system_instruction", sysInst)
+                          .put("contents", contents)
+                          .put("generationConfig", genConfig);
+
+                  try (OutputStream os = conn.getOutputStream()) {
+                      os.write(payload.toString().getBytes(StandardCharsets.UTF_8));
+                  }
+
+                  int code = conn.getResponseCode();
+                  if (code != 200) return null;
+
+                  StringBuilder sb = new StringBuilder();
+                  try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+                      String line;
+                      while ((line = br.readLine()) != null) sb.append(line);
+                  }
+
+                  JSONObject resJson = new JSONObject(sb.toString());
+                  return resJson.getJSONArray("candidates")
+                          .getJSONObject(0)
+                          .getJSONObject("content")
+                          .getJSONArray("parts")
+                          .getJSONObject(0)
+                          .getString("text")
+                          .trim();
+              }
+
+              private void saveLog(SharedPreferences prefs, String sender, String question, String answer) {
+                  try {
+                      JSONArray arr = new JSONArray(prefs.getString("logs", "[]"));
+                      JSONObject entry = new JSONObject();
+                      entry.put("sender", sender);
+                      entry.put("question", question);
+                      entry.put("answer", answer);
+                      entry.put("time", new SimpleDateFormat("hh:mm a", Locale.getDefault()).format(new Date()));
+
+                      JSONArray updated = new JSONArray();
+                      updated.put(entry);
+                      for (int i = 0; i < Math.min(arr.length(), 19); i++) {
+                          updated.put(arr.getJSONObject(i));
+                      }
+                      prefs.edit().putString("logs", updated.toString()).apply();
+                  } catch (Exception ignored) {}
+              }
+          }
+          EOF
+
+          cat << 'EOF' > "$PKG_DIR/MainActivity.java"
+          package com.sirmahee.doubtbot;
+
+          import android.content.Intent;
+          import android.content.SharedPreferences;
+          import android.os.Bundle;
+          import android.provider.Settings;
+          import android.webkit.JavascriptInterface;
+          import com.getcapacitor.BridgeActivity;
+
+          public class MainActivity extends BridgeActivity {
+              @Override
+              public void onCreate(Bundle savedInstanceState) {
+                  super.onCreate(savedInstanceState);
+                  if (this.bridge != null && this.bridge.getWebView() != null) {
+                      this.bridge.getWebView().addJavascriptInterface(new WebAppBridge(), "AndroidWABridge");
+                  }
+              }
+
+              public class WebAppBridge {
+                  @JavascriptInterface
+                  public void syncConfig(String apiKey, String model, boolean enabled, String triggerPrefix, String classLevel, String langPref, boolean ignoreGroups, String customRules) {
+                      SharedPreferences prefs = getSharedPreferences("SirMaheeWABot", MODE_PRIVATE);
+                      prefs.edit()
+                              .putString("apiKey", apiKey != null ? apiKey : "")
+                              .putString("model", model != null ? model : "gemini-2.5-flash")
+                              .putBoolean("enabled", enabled)
+                              .putString("triggerPrefix", triggerPrefix != null ? triggerPrefix : "")
+                              .putString("classLevel", classLevel != null ? classLevel : "Class 10")
+                              .putString("langPref", langPref != null ? langPref : "Hindi + English")
+                              .putBoolean("ignoreGroups", ignoreGroups)
+                              .putString("customRules", customRules != null ? customRules : "")
+                              .apply();
+                  }
+
+                  @JavascriptInterface
+                  public boolean isNotificationServiceEnabled() {
+                      String flat = Settings.Secure.getString(getContentResolver(), "enabled_notification_listeners");
+                      return flat != null && flat.contains(getPackageName());
+                  }
+
+                  @JavascriptInterface
+                  public void openNotificationSettings() {
+                      Intent intent = new Intent(Settings.ACTION_NOTIFICATION_LISTENER_SETTINGS);
+                      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                      startActivity(intent);
+                  }
+
+                  @JavascriptInterface
+                  public String getLogs() {
+                      SharedPreferences prefs = getSharedPreferences("SirMaheeWABot", MODE_PRIVATE);
+                      return prefs.getString("logs", "[]");
+                  }
+
+                  @JavascriptInterface
+                  public void clearLogs() {
+                      SharedPreferences prefs = getSharedPreferences("SirMaheeWABot", MODE_PRIVATE);
+                      prefs.edit().putString("logs", "[]").apply();
+                  }
+              }
+          }
+          EOF
+
+      - name: Configure AndroidManifest Permissions & Service
+        run: |
+          MANIFEST="android/app/src/main/AndroidManifest.xml"
+          sed -i 's/<application/<uses-permission android:name="android.permission.INTERNET" \/>
+    <uses-permission android:name="android.permission.RECORD_AUDIO" \/>
+    <application/' "$MANIFEST"
+          sed -i 's/<\/application>/    <service android:name=".WhatsAppAutoReplyService" android:label="Sir Mahee WhatsApp AI" android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService" \/>
+            <\/intent-filter>
+        <\/service>
+    <\/application>/' "$MANIFEST"
 
       - name: Build Debug APK
         run: |
