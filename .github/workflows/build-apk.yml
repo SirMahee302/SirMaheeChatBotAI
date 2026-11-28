@@ -361,16 +361,33 @@ jobs:
 
       - name: Configure AndroidManifest Permissions & Service
         run: |
-          MANIFEST="android/app/src/main/AndroidManifest.xml"
-          sed -i 's/<application/<uses-permission android:name="android.permission.INTERNET" \/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO" \/>
-    <application/' "$MANIFEST"
-          sed -i 's/<\/application>/    <service android:name=".WhatsAppAutoReplyService" android:label="Sir Mahee WhatsApp AI" android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" android:exported="true">
-            <intent-filter>
-                <action android:name="android.service.notification.NotificationListenerService" \/>
-            <\/intent-filter>
-        <\/service>
-    <\/application>/' "$MANIFEST"
+          python3 - << 'EOF'
+          path = "android/app/src/main/AndroidManifest.xml"
+          with open(path, "r", encoding="utf-8") as f:
+              xml = f.read()
+
+          perms = (
+              '<uses-permission android:name="android.permission.INTERNET" />\n'
+              '    <uses-permission android:name="android.permission.RECORD_AUDIO" />\n'
+              '    <application'
+          )
+          service = (
+              '    <service android:name=".WhatsAppAutoReplyService" '
+              'android:label="Sir Mahee WhatsApp AI" '
+              'android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE" '
+              'android:exported="true">\n'
+              '            <intent-filter>\n'
+              '                <action android:name="android.service.notification.NotificationListenerService" />\n'
+              '            </intent-filter>\n'
+              '        </service>\n'
+              '    </application>'
+          )
+
+          xml = xml.replace("<application", perms, 1)
+          xml = xml.replace("</application>", service, 1)
+          with open(path, "w", encoding="utf-8") as f:
+              f.write(xml)
+          EOF
 
       - name: Build Debug APK
         run: |
