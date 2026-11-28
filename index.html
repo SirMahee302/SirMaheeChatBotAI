@@ -1304,10 +1304,9 @@
         </div>
       </div>
 
-      <button class="hdr-icon-btn" onclick="openApiSettings()" aria-label="AI Key Settings" title="Gemini AI Key">
-        <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="12" r="3"></circle>
-          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+      <button class="hdr-icon-btn" onclick="openWhatsAppBotDialog()" aria-label="WhatsApp Auto-Reply" title="WhatsApp Auto-Reply">
+        <svg width="21" height="21" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.08 1.21 4.74 1.21 5.46 0 9.91-4.45 9.91-9.91C21.95 6.45 17.5 2 12.04 2zm5.82 14.01c-.24.68-1.41 1.3-1.95 1.38-.5.08-1.13.11-1.82-.11-.42-.13-.96-.31-1.65-.61-2.9-1.25-4.79-4.17-4.94-4.36-.14-.19-1.18-1.57-1.18-3 0-1.43.75-2.13 1.01-2.42.27-.29.58-.36.78-.36.19 0 .39 0 .56.01.18.01.42-.07.66.5.24.58.82 2.01.89 2.16.07.14.12.31.02.5-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.15-.3.31-.13.6.17.29.76 1.25 1.63 2.02 1.12 1 2.06 1.31 2.35 1.46.29.15.46.12.63-.07.17-.19.73-.85.92-1.14.19-.29.39-.24.65-.15.27.1 1.69.8 1.98.94.29.15.48.22.55.34.07.12.07.7-.17 1.38z"/>
         </svg>
         <span class="notif-badge" id="hdrApiDot"></span>
       </button>
@@ -1376,6 +1375,15 @@
     </div>
     <input type="file" id="photoFile" accept="image/*" hidden onchange="onPhotoSelected(event)" />
     <input type="file" id="pdfFile" accept=".txt,.md,.csv,.pdf" hidden onchange="onDocSelected(event)" />
+
+    <section class="exam-special-card" style="background:linear-gradient(125deg,#075E54 0%,#128C7E 60%,#25D366 100%);margin-bottom:14px;box-shadow:0 12px 26px -4px rgba(7,94,84,0.34);" onclick="openWhatsAppBotDialog()">
+      <div class="exam-bullseye" style="background:rgba(255,255,255,0.2);">💬</div>
+      <div class="exam-copy">
+        <h4 style="font-size:15.5px;">WhatsApp Auto-Reply Bot</h4>
+        <p id="waHomeStatusText">विद्यार्थियों के WhatsApp सवालों का ऑटोमैटिक जवाब • Setup करें</p>
+      </div>
+      <div class="exam-go-circle" id="waHomeBadge">ON/OFF</div>
+    </section>
 
     <section class="ai-hero-card" onclick="switchView('chatbot')">
       <svg class="hero-bot-svg" viewBox="0 0 96 104" fill="none">
@@ -1791,6 +1799,7 @@
       <p style="font-size:12.5px;color:#525d78;line-height:1.5;">
         आपकी प्रोग्रेस, चैट हिस्ट्री और Gemini API Key इस फोन में <strong>Auto-Save</strong> रहती है।
       </p>
+      <button class="navy-cta" style="background:linear-gradient(135deg,#075E54,#128C7E);color:#fff;" onclick="openWhatsAppBotDialog()">💬 WhatsApp Auto-Reply Bot</button>
       <button class="navy-cta" onclick="openApiSettings()">🔑 Manage Gemini API Key</button>
       <button class="navy-cta" onclick="openHistoryDialog()">🕒 My Saved Doubts History</button>
     </div>
@@ -1857,10 +1866,93 @@
   // ==================== 1. AUTO-SAVE STATE MANAGEMENT ====================
   const STORAGE_KEY = 'sir_mahee_doubtbot_v5';
 
+  const DEFAULT_SIRASSIST_RULES = `1. Identity & Role
+तुम SirAssist हो, जो Sir Mahee के पर्सनल और स्टूडेंट हेल्प WhatsApp AI Assistant हो।
+Sir Mahee एक English Teacher, Educational Content Creator और SirMahee Learning World के Creator हैं।
+तुम्हारा उद्देश्य विद्यार्थियों की पढ़ाई में सहायता करना, सामान्य शैक्षणिक प्रश्नों का उत्तर देना और Sir के जरूरी निजी या विद्यालय संबंधी संदेशों को विनम्रता से संभालना है।
+
+2. FIRST GREETING RULE
+यदि कोई यूज़र पहली बार केवल अभिवादन करे, जैसे Hi, Hello, Hey, Namaste, Hii या अन्य सामान्य Greeting, और उसके मैसेज में कोई अन्य प्रश्न न हो, तो बिना किसी बदलाव के नीचे दिया गया जवाब भेजो:
+
+नमस्ते! 🙏
+
+आपका स्वागत है मैं यहां Sir Mahee का AI Assistant हूं।
+
+मैं आपकी पढ़ाई, अंग्रेजी ग्रामर, सामान्य ज्ञान और नोट्स से जुड़े सवालों में मदद कर सकता हूँ।
+
+अपना सवाल यहाँ लिखें।👇 📚
+
+इस Greeting को केवल Greeting वाले मैसेज पर लागू करना है। यदि यूज़र Greeting के साथ कोई सवाल पूछता है, तो Greeting दोहराने के बजाय सीधे उसके सवाल का उत्तर दो।
+
+3. STUDENT ACADEMIC SUPPORT
+यदि कोई विद्यार्थी निम्न विषयों से जुड़ा प्रश्न पूछता है, तो उसे सरल, सटीक और विद्यार्थी-अनुकूल भाषा में उत्तर दो:
+English Grammar, English Literature, Vocabulary, Translation (Hindi to English / English to Hindi), General Knowledge (GK), Rajasthan GK, School Subjects, Exam Preparation, Revision, Writing Skills.
+उत्तर देने का तरीका:
+- सरल Hindi + English (Hinglish) का प्रयोग करो।
+- उत्तर को छोटे और स्पष्ट Points में व्यवस्थित करो।
+- जरूरत पड़ने पर उदाहरण दो।
+- विद्यार्थियों को कठिन भाषा से भ्रमित मत करो।
+- उत्तर तथ्यात्मक और सटीक होना चाहिए। यदि किसी तथ्य की पुष्टि नहीं हो, तो गलत उत्तर देने के बजाय स्पष्ट बताओ।
+- समझाने का अंदाज़ दोस्ताना, सहज और हल्का मजाकिया रखो।
+- जरूरत पड़ने पर Sir Mahee के समझाने वाले अंदाज़ का संदर्भ लेकर विषय समझाओ, लेकिन यह दावा मत करो कि Sir ने वास्तव में उस विद्यार्थी से बात की है।
+
+4. NOTES, PDF & VIDEO LECTURES
+यदि कोई विद्यार्थी Notes, PDF, Study Material, Revision Material या Video Lecture माँगे, तो उसे बताओ कि वह Sir Mahee के Educational Platforms पर सामग्री देख सकता है:
+📚 Telegram: Sir_mahee
+▶️ YouTube: Sir_mahee
+📸 Instagram: @Sir_mahee
+यदि उपलब्ध जानकारी में किसी विशेष सामग्री का Direct Link नहीं है, तो कोई लिंक गढ़कर मत भेजो।
+
+5. PERSONAL & SCHOOL URGENT MESSAGES
+यदि कोई यूज़र Sir Mahee के निजी काम, व्यक्तिगत संदेश, तत्काल संपर्क, विद्यालय के कार्य या अन्य ऐसे विषय पर मैसेज करे जिनका जवाब Sir Mahee को स्वयं देना आवश्यक हो, तो निम्न निर्धारित जवाब भेजो:
+
+सर अभी क्लास में व्यस्त हैं, आपका मैसेज नोट कर लिया गया है। वे जल्द ही आपसे संपर्क करेंगे।
+
+इस उत्तर के बाद स्वयं कोई व्यक्तिगत वादा, निर्णय, समय या प्रतिबद्धता मत करो।
+
+6. WHATSAPP FORMATTING RULES
+WhatsApp Formatting के नियमों का सख्ती से पालन करो:
+- Bold: किसी शब्द को Bold करने के लिए शब्द के दोनों तरफ Single Asterisk का प्रयोग करो (उदाहरण: *Important* *Answer* *Grammar*)। Double Asterisk का उपयोग नहीं करना है।
+- Italic: किसी शब्द को Italic करने के लिए शब्द के दोनों तरफ Single Underscore का प्रयोग करो (उदाहरण: _Example_ _Revision_)। Double Underscore का उपयोग नहीं करना है।
+- Formatting Symbols के आसपास उचित स्पेस रखो, ताकि WhatsApp Formatting सही ढंग से प्रदर्शित हो।
+
+7. FRIENDLY & HUMOROUS TEACHING STYLE
+- विद्यार्थियों से दोस्ताना, सहज, सकारात्मक और जरूरत पड़ने पर हल्के मजाकिया अंदाज़ में बात करो।
+- विद्यार्थी को डाँटने या अपमानित करने के बजाय समझाओ और छोटे उदाहरणों से विषय स्पष्ट करो।
+- अनावश्यक लंबा उत्तर मत दो। प्रश्न के अनुसार उत्तर की लंबाई तय करो।
+
+8. GROUP MESSAGE IGNORE RULE
+- WhatsApp Group Messages पर कोई Auto-Reply नहीं करना है। सभी Group Messages को Ignore करो।
+- ये सभी नियम केवल Individual/Private Chats पर लागू होंगे।
+
+9. ENDING & FEEDBACK
+- सामान्य शैक्षणिक उत्तरों के अंत में विद्यार्थी से एक छोटा, प्रासंगिक सवाल पूछो या Feedback लो (उदाहरण: समझ आया या एक और Example दूँ? 😊 / क्या अब इसे आसान तरीके से समझ पाए? / चाहो तो इसका छोटा Revision भी कर सकते हैं। / अब इसका एक Practice Question करें?)।
+- Personal/School Urgent Message वाले निर्धारित जवाब और First Greeting के मामले में इस नियम को लागू नहीं करना है।
+
+10. PRIORITY ORDER
+1. WhatsApp Group Ignore Rule
+2. First Greeting Rule
+3. Personal & School Urgent Message Rule
+4. Academic Support Rule
+5. Notes & Video Rule
+6. Formatting Rule
+7. Friendly Ending Rule
+
+11. GENERAL BEHAVIOR
+- तुम Sir Mahee के प्रतिनिधि AI Assistant हो, स्वयं Sir Mahee नहीं।
+- Sir Mahee की ओर से कोई निर्णय, वादा या व्यक्तिगत पुष्टि मत करो।
+- गलत, मनगढ़ंत या अपुष्ट जानकारी मत दो।
+- एक ही जानकारी बार-बार मत दो।`;
+
   const defaultState = {
     backendUrl: DEFAULT_BACKEND_URL,
     apiKey: '',
     model: 'gemini-2.5-flash',
+    waAutoReply: false,
+    waTriggerPrefix: '',
+    waIgnoreGroups: true,
+    waReplyCount: 0,
+    waCustomRules: DEFAULT_SIRASSIST_RULES,
     studentName: 'Student',
     selectedClass: 'Class 10',
     selectedLang: 'Hindi + English',
@@ -1918,9 +2010,27 @@
     }
   }
 
+  function syncNativeWhatsAppBridge() {
+    try {
+      if (window.AndroidWABridge && typeof window.AndroidWABridge.syncConfig === 'function') {
+        window.AndroidWABridge.syncConfig(
+          (appState.apiKey || '').trim(),
+          appState.model || 'gemini-2.5-flash',
+          Boolean(appState.waAutoReply),
+          (appState.waTriggerPrefix || '').trim(),
+          appState.selectedClass || 'Class 10',
+          appState.selectedLang || 'Hindi + English',
+          Boolean(appState.waIgnoreGroups),
+          (appState.waCustomRules || DEFAULT_SIRASSIST_RULES)
+        );
+      }
+    } catch (e) {
+      console.warn('AndroidWABridge sync error', e);
+    }
+  }
+
   function saveAppState() {
     try {
-      // Keep window.name / cookie compact by limiting stored chat messages
       const compactState = {
         ...appState,
         chatHistory: (appState.chatHistory || []).slice(-12)
@@ -1929,6 +2039,7 @@
     } catch (e) {
       console.warn('Storage fallback error', e);
     }
+    syncNativeWhatsAppBridge();
     syncAllUI();
   }
 
@@ -1968,15 +2079,34 @@
     const aiModeEl = document.getElementById('aiModeText');
     const hdrDot = document.getElementById('hdrApiDot');
     const activeBackend = (appState.backendUrl || DEFAULT_BACKEND_URL || '').trim();
+    const hasKey = activeBackend.startsWith('http') || (appState.apiKey && appState.apiKey.trim().length > 10);
     if (activeBackend.startsWith('http')) {
       aiModeEl.innerHTML = `<span class="status-dot dot-live"></span>🔒 Secure Backend AI Active (${appState.model})`;
-      hdrDot.style.background = '#22c55e';
-    } else if (appState.apiKey && appState.apiKey.trim().length > 10) {
+    } else if (hasKey) {
       aiModeEl.innerHTML = `<span class="status-dot dot-live"></span>Live Gemini AI Active (${appState.model})`;
-      hdrDot.style.background = '#22c55e';
     } else {
-      aiModeEl.innerHTML = `<span class="status-dot dot-demo"></span>Offline Mode (Backend या Key सेट करें)`;
-      hdrDot.style.background = '#ef4444';
+      aiModeEl.innerHTML = `<span class="status-dot dot-demo"></span>Offline Mode (Gemini Key सेट करें)`;
+    }
+
+    const waStatusEl = document.getElementById('waHomeStatusText');
+    const waBadgeEl = document.getElementById('waHomeBadge');
+    if (waStatusEl && waBadgeEl) {
+      if (appState.waAutoReply && hasKey) {
+        waStatusEl.textContent = '🟢 WhatsApp Auto-Reply सक्रिय है • हर सवाल का ऑटो जवाब';
+        waBadgeEl.textContent = 'LIVE';
+        waBadgeEl.style.background = '#22c55e';
+        hdrDot.style.background = '#22c55e';
+      } else if (hasKey) {
+        waStatusEl.textContent = 'Key सेव है • WhatsApp Auto-Reply चालू करने के लिए टैप करें';
+        waBadgeEl.textContent = 'OFF';
+        waBadgeEl.style.background = 'rgba(255,255,255,0.2)';
+        hdrDot.style.background = '#f59e0b';
+      } else {
+        waStatusEl.textContent = 'पहले Gemini Key डालें, फिर WhatsApp Auto-Reply चालू करें';
+        waBadgeEl.textContent = 'SETUP';
+        waBadgeEl.style.background = 'rgba(255,255,255,0.2)';
+        hdrDot.style.background = '#ef4444';
+      }
     }
   }
 
@@ -2082,13 +2212,10 @@
     const cls = appState.selectedClass;
     const lng = appState.selectedLang;
 
-    const systemInstruction = `You are "Sir Mahee DoubtBot AI", a friendly and expert Indian school teacher for RBSE and NCERT students (${cls}).
-Explain concepts clearly in ${lng}.
-Rules:
-1. Always give a structured Step-by-Step solution (Step 1, Step 2, Step 3...).
-2. Highlight key formulas, definitions, or rules using **bold**.
-3. End with a short "Quick Tip:" for exams.
-4. Keep formatting clean and easy to read on a mobile screen.`;
+    const systemInstruction = `${appState.waCustomRules || DEFAULT_SIRASSIST_RULES}
+
+Current Student Class Context: ${cls} (RBSE/NCERT), Preferred Language: ${lng}.
+Note: For in-app display, format clearly with readable headings and points.`;
 
     const parts = [{ text: promptText }];
     if (imageBase64) {
@@ -2626,6 +2753,106 @@ Quick Tip: ऊपर 🔑 **Gemini Key** बटन दबाकर अपनी 
 
   function closeDialog() { document.getElementById('modalBox').classList.remove('open'); }
 
+  function openWhatsAppBotDialog() {
+    const isNativeApk = Boolean(window.AndroidWABridge);
+    let permGranted = false;
+    let logsHtml = '';
+
+    if (isNativeApk) {
+      try {
+        permGranted = window.AndroidWABridge.isNotificationServiceEnabled();
+        const rawLogs = window.AndroidWABridge.getLogs();
+        const logs = JSON.parse(rawLogs || '[]');
+        if (logs.length > 0) {
+          logsHtml = logs.map(item => `
+            <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:8px;margin-bottom:6px;font-size:11.5px;">
+              <div style="font-weight:800;color:#075E54;">👤 ${item.sender} • ${item.time}</div>
+              <div style="color:#1e293b;margin-top:2px;"><b>Q:</b> ${item.question}</div>
+              <div style="color:#15803d;margin-top:2px;"><b>AI:</b> ${item.answer}</div>
+            </div>
+          `).join('');
+        } else {
+          logsHtml = '<p style="font-size:11.5px;color:#64748b;">अभी तक WhatsApp पर कोई ऑटो-रिप्लाई नहीं भेजा गया है।</p>';
+        }
+      } catch (e) {}
+    }
+
+    const nativeBanner = isNativeApk
+      ? `<div style="background:${permGranted ? '#dcfce7' : '#fef3c7'};border:1px solid ${permGranted ? '#22c55e' : '#f59e0b'};padding:10px;border-radius:12px;margin-bottom:10px;font-size:12px;">
+           <b>${permGranted ? '✅ Notification Permission चालू है!' : '⚠️ Step 1: Notification Permission चालू करें'}</b><br>
+           <span style="font-size:11px;color:#334155;">ताकि यह ऐप बैकग्राउंड में WhatsApp मैसेज पढ़कर सीधे रिप्लाई भेज सके।</span>
+           <button class="navy-cta" style="margin-top:6px;padding:8px;font-size:12px;background:#075E54;" onclick="window.AndroidWABridge.openNotificationSettings()">🔓 Notification Access खोलें</button>
+         </div>`
+      : `<div style="background:#eff6ff;border:1px solid #93c5fd;padding:9px;border-radius:12px;margin-bottom:10px;font-size:11.5px;color:#1e3a8a;">
+           ℹ️ <b>ध्यान दें:</b> बैकग्राउंड WhatsApp Auto-Reply के लिए इस ऐप का नया <b>Android APK</b> इंस्टॉल करें (या नीचे दिए बटन से <b>AutoResponder for WA</b> से जोड़ें)।
+         </div>`;
+
+    showDialog('💬 WhatsApp Auto-Reply Bot', `
+      ${nativeBanner}
+
+      <label style="display:flex;align-items:center;justify-content:space-between;background:#fff;padding:10px 12px;border-radius:12px;border:1.5px solid #d6c5a3;margin-bottom:10px;cursor:pointer;">
+        <span style="font-weight:800;font-size:13px;color:#075E54;">🤖 WhatsApp Auto-Reply चालू रखें</span>
+        <input type="checkbox" id="waToggleChk" ${appState.waAutoReply ? 'checked' : ''} style="width:20px;height:20px;accent-color:#128C7E;" />
+      </label>
+
+      <label style="display:flex;align-items:center;justify-content:space-between;background:#fff;padding:9px 12px;border-radius:12px;border:1px solid #e2e8f0;margin-bottom:10px;cursor:pointer;">
+        <span style="font-weight:700;font-size:12px;">👥 WhatsApp Groups को Ignore करें</span>
+        <input type="checkbox" id="waIgnoreGrpChk" ${appState.waIgnoreGroups ? 'checked' : ''} style="width:18px;height:18px;accent-color:#128C7E;" />
+      </label>
+
+      <label style="font-weight:700;font-size:12px;">Trigger Word (वैकल्पिक — खाली छोड़ें तो हर सवाल का जवाब मिलेगा):</label>
+      <input type="text" id="waPrefixInp" class="form-input" placeholder="उदाहरण: ? या doubt (या खाली छोड़ें)" value="${appState.waTriggerPrefix || ''}" />
+
+      <label style="font-weight:700;font-size:12px;">Gemini API Key (AIzaSy...):</label>
+      <input type="text" id="waApiKeyInp" class="form-input" placeholder="AIzaSy..." value="${appState.apiKey || ''}" autocomplete="off" spellcheck="false" />
+
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:4px;">
+        <label style="font-weight:700;font-size:12px;">📜 SirAssist Rules (System Prompt):</label>
+        <button type="button" onclick="resetSirAssistRules()" style="background:none;border:none;color:#1d4ed8;font-size:11px;font-weight:700;cursor:pointer;">↺ Default Rules</button>
+      </div>
+      <textarea id="waRulesInp" class="form-input" rows="5" style="font-size:11.5px;line-height:1.45;resize:vertical;">${(appState.waCustomRules || DEFAULT_SIRASSIST_RULES).replace(/</g, '&lt;')}</textarea>
+
+      <button class="navy-cta" style="background:linear-gradient(135deg,#075E54,#128C7E);color:#fff;" onclick="saveWhatsAppBotConfig()">💾 Save & Activate SirAssist Bot</button>
+
+      ${isNativeApk ? `
+        <div style="margin-top:14px;border-top:1px solid #e2e8f0;padding-top:10px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <strong style="font-size:12.5px;">📜 Recent WhatsApp Auto-Replies</strong>
+            <button onclick="window.AndroidWABridge.clearLogs(); openWhatsAppBotDialog();" style="background:none;border:none;color:#dc2626;font-size:11px;font-weight:700;cursor:pointer;">Clear</button>
+          </div>
+          ${logsHtml}
+        </div>
+      ` : ''}
+    `);
+  }
+
+  function saveWhatsAppBotConfig() {
+    const enabled = document.getElementById('waToggleChk').checked;
+    const ignoreGrp = document.getElementById('waIgnoreGrpChk').checked;
+    const prefix = document.getElementById('waPrefixInp').value.trim();
+    const key = document.getElementById('waApiKeyInp').value.replace(/[\s\u200B-\u200D\uFEFF]/g, '');
+
+    if (enabled && key.length < 15) {
+      alert('कृपया पहले सही Gemini API Key (AIzaSy...) दर्ज करें!');
+      return;
+    }
+
+    const rulesTxt = document.getElementById('waRulesInp').value.trim();
+
+    appState.waAutoReply = enabled;
+    appState.waIgnoreGroups = ignoreGrp;
+    appState.waTriggerPrefix = prefix;
+    appState.waCustomRules = rulesTxt || DEFAULT_SIRASSIST_RULES;
+    if (key) appState.apiKey = key;
+    saveAppState();
+    closeDialog();
+  }
+
+  function resetSirAssistRules() {
+    const box = document.getElementById('waRulesInp');
+    if (box) box.value = DEFAULT_SIRASSIST_RULES;
+  }
+
   function openApiSettings() {
     const currentBackend = appState.backendUrl || DEFAULT_BACKEND_URL || '';
     showDialog('🔒 Secure Backend & AI Setup', `
@@ -2784,6 +3011,7 @@ Quick Tip: ऊपर 🔑 **Gemini Key** बटन दबाकर अपनी 
 
   // ==================== INITIALIZE APP ====================
   checkDailyStreak();
+  syncNativeWhatsAppBridge();
   syncAllUI();
   renderChatStream();
   loadQuiz();
@@ -2801,4 +3029,4 @@ Quick Tip: ऊपर 🔑 **Gemini Key** बटन दबाकर अपनी 
   }
 </script>
 </body>
-      </html>
+          </html>
